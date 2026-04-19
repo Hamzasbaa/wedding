@@ -18,6 +18,9 @@
   "language": {
     "switchTo": "العربية"
   },
+  "envelope": {
+    "cta": "Cliquez sur le sceau pour ouvrir"
+  },
   "reveal": {
     "prompt": "Grattez pour découvrir la date",
     "hint": "Grattez les trois cercles",

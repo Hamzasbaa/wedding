@@ -1,8 +1,10 @@
 // Public invitation page — composes the full flow.
-// Scratch gate (opening moment) → hero → countdown → story → schedule → venues → gifts → rsvp → footer.
+// Two opening beats: envelope (wax seal, click to open) → scratch (reveal the date).
+// Then: hero → countdown → story → schedule → venues → gifts → rsvp → footer.
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
+import { EnvelopeCover, wasEnvelopeOpened } from '@/components/EnvelopeCover'
 import { ScratchGate, wasInvitationOpened } from '@/components/ScratchGate'
 import { Countdown } from '@/sections/Countdown'
 import { Story } from '@/sections/Story'
@@ -13,6 +15,7 @@ import { Rsvp } from '@/sections/Rsvp'
 
 export function Invitation() {
   const { t, i18n } = useTranslation()
+  const [envelopeOpen, setEnvelopeOpen] = useState<boolean>(() => wasEnvelopeOpened())
   const [opened, setOpened] = useState<boolean>(() => wasInvitationOpened())
 
   const displayFont =
@@ -20,7 +23,8 @@ export function Invitation() {
 
   return (
     <>
-      {!opened && <ScratchGate onEntered={() => setOpened(true)} />}
+      {!envelopeOpen && <EnvelopeCover onOpened={() => setEnvelopeOpen(true)} />}
+      {envelopeOpen && !opened && <ScratchGate onEntered={() => setOpened(true)} />}
 
       {/* Hero */}
       <section className="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-6 py-24 text-center">

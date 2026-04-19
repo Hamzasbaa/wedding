@@ -18,6 +18,9 @@
   "language": {
     "switchTo": "Français"
   },
+  "envelope": {
+    "cta": "انقروا على الختم لفتح الدعوة"
+  },
   "reveal": {
     "prompt": "اكشفوا التاريخ",
     "hint": "اكشفوا الدوائر الثلاث",
