@@ -17,5 +17,45 @@
   },
   "language": {
     "switchTo": "العربية"
+  },
+  "story": {
+    "title": "Notre histoire",
+    "p1": "Hamza a pris le train jusqu'à Reims le 22 juin. Elle n'a pas arrêté de sourire. On était célibataires depuis longtemps tous les deux, on attendait quelqu'un qui en valait vraiment la peine. Ce jour-là, on a arrêté d'attendre. Pas un seul jour de doute depuis.",
+    "p2": "Mariame est solaire, Hamza plus discret. Elle déborde d'énergie, il est direct. On se complète, et surtout, on se tire vers le haut.",
+    "p3": "On s'est dit oui le 11 avril à la Mairie du 11e arrondissement. Le 14 novembre à Casablanca, on se retrouve — et on célèbre avec celles et ceux qui n'ont pas pu faire le voyage jusqu'à Paris."
+  },
+  "schedule": {
+    "title": "Le déroulé",
+    "placeholder": "Horaires à confirmer — une journée complète de célébration vous attend.",
+    "items": [
+      { "time": "16h00", "label": "Cérémonie" },
+      { "time": "18h00", "label": "Cocktail" },
+      { "time": "20h00", "label": "Dîner" },
+      { "time": "23h00", "label": "Soirée" }
+    ]
+  },
+  "venues": {
+    "title": "Où",
+    "toBeConfirmed": "Lieu à confirmer",
+    "ceremony": { "role": "Cérémonie", "city": "Casablanca" },
+    "reception": { "role": "Réception", "city": "Casablanca" }
+  },
+  "rsvp": {
+    "title": "Votre réponse",
+    "subtitle": "Merci de confirmer avant le 15 septembre 2026.",
+    "fields": {
+      "name": "Votre nom",
+      "email": "Email",
+      "plusOne": "Accompagnant·e (si applicable)",
+      "dietary": "Préférences alimentaires",
+      "message": "Un mot pour les mariés (facultatif)"
+    },
+    "attending": {
+      "question": "Serez-vous des nôtres ?",
+      "yes": "Avec joie",
+      "no": "Avec regret"
+    },
+    "submit": "Envoyer",
+    "thanks": "Merci, nous avons bien reçu votre réponse."
   }
 }
