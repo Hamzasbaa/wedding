@@ -3,6 +3,7 @@
     "locale": "fr",
     "dir": "ltr"
   },
+  "invocation": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
   "couple": {
     "firstName1": "Mariame",
     "firstName2": "Hamza",
@@ -10,10 +11,8 @@
   },
   "wedding": {
     "dateLong": "14 novembre 2026",
-    "city": "Casablanca"
-  },
-  "home": {
-    "greeting": "Nous nous marions"
+    "city": "Casablanca",
+    "afterParis": "après Paris"
   },
   "language": {
     "switchTo": "العربية"

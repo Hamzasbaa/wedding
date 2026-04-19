@@ -3,6 +3,7 @@
     "locale": "ar",
     "dir": "rtl"
   },
+  "invocation": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
   "couple": {
     "firstName1": "مريم",
     "firstName2": "حمزة",
@@ -10,10 +11,8 @@
   },
   "wedding": {
     "dateLong": "14 نوفمبر 2026",
-    "city": "الدار البيضاء"
-  },
-  "home": {
-    "greeting": "نحن نتزوج"
+    "city": "الدار البيضاء",
+    "afterParis": "بعد باريس"
   },
   "language": {
     "switchTo": "Français"
