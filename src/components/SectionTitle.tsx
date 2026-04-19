@@ -1,5 +1,7 @@
-// Shared section title. Serif italic, mid-weight size, centered.
-// Matches the invitation line's tone — not competing with the hero display.
+// Shared section title.
+// Latin: Parisienne script in gold — the "ornamental warmth" the references had.
+// Arabic: keeps Aref Ruqaa (already calligraphic) so we don't translate a Latin
+// cursive metaphor into an RTL script where it would read as noise.
 import { useTranslation } from 'react-i18next'
 
 interface SectionTitleProps {
@@ -8,17 +10,18 @@ interface SectionTitleProps {
 
 export function SectionTitle({ children }: SectionTitleProps) {
   const { i18n } = useTranslation()
-  const font = i18n.language === 'ar' ? 'var(--font-arabic-display)' : 'var(--font-serif)'
+  const isArabic = i18n.language === 'ar'
 
   return (
     <h2
-      className="text-center italic"
+      className="text-center"
       style={{
-        fontFamily: font,
-        fontSize: 'var(--fs-section)',
+        fontFamily: isArabic ? 'var(--font-arabic-display)' : 'var(--font-script)',
+        fontSize: isArabic ? 'var(--fs-section)' : 'clamp(2.5rem, 7vw, 5.5rem)',
         lineHeight: 'var(--lh-section)',
-        fontWeight: 500,
-        letterSpacing: i18n.language === 'ar' ? 'normal' : '-0.02em',
+        fontWeight: isArabic ? 500 : 400,
+        color: isArabic ? 'var(--color-ink)' : 'var(--color-gold)',
+        letterSpacing: isArabic ? 'normal' : '0',
       }}
     >
       {children}

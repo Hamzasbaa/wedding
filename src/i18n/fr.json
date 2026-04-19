@@ -18,6 +18,19 @@
   "language": {
     "switchTo": "العربية"
   },
+  "reveal": {
+    "prompt": "Grattez pour découvrir la date",
+    "hint": "Grattez les trois cercles",
+    "tagline": "On se marie !",
+    "enter": "Entrer"
+  },
+  "countdown": {
+    "title": "Compte à rebours",
+    "subtitle": "Jusqu'au 14 novembre 2026",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes"
+  },
   "story": {
     "title": "Notre histoire",
     "p1": "Hamza a pris le train jusqu'à Reims le 22 juin. Elle n'a pas arrêté de sourire. On était célibataires depuis longtemps tous les deux, on attendait quelqu'un qui en valait vraiment la peine. Ce jour-là, on a arrêté d'attendre. Pas un seul jour de doute depuis.",
@@ -28,10 +41,11 @@
     "title": "Le déroulé",
     "placeholder": "Horaires à confirmer — une journée complète de célébration vous attend.",
     "items": [
-      { "time": "16h00", "label": "Cérémonie" },
-      { "time": "18h00", "label": "Cocktail" },
-      { "time": "20h00", "label": "Dîner" },
-      { "time": "23h00", "label": "Soirée" }
+      { "time": "16h00", "label": "Cérémonie", "subtitle": "On se dit oui", "icon": "rings" },
+      { "time": "18h00", "label": "Cocktail", "subtitle": "Bulles et bouchées", "icon": "cocktail" },
+      { "time": "20h00", "label": "Dîner", "subtitle": "À table", "icon": "plate" },
+      { "time": "22h30", "label": "Première danse", "subtitle": "On ouvre le bal", "icon": "heart" },
+      { "time": "23h00", "label": "Soirée", "subtitle": "Jusqu'au bout de la nuit", "icon": "music" }
     ]
   },
   "venues": {
@@ -40,14 +54,37 @@
     "ceremony": { "role": "Cérémonie", "city": "Casablanca" },
     "reception": { "role": "Réception", "city": "Casablanca" }
   },
+  "gifts": {
+    "title": "Cadeaux",
+    "intro": "Votre présence est notre plus beau cadeau. Si vous souhaitez tout de même nous faire plaisir, voici nos coordonnées bancaires :",
+    "accounts": [
+      {
+        "bank": "Banque — Hamza Sbaa",
+        "iban": "FR00 0000 0000 0000 0000 0000 000",
+        "bic": "XXXXXXXX"
+      },
+      {
+        "bank": "Banque — Mariame",
+        "iban": "FR00 0000 0000 0000 0000 0000 000",
+        "bic": "XXXXXXXX"
+      }
+    ],
+    "ibanLabel": "IBAN",
+    "bicLabel": "BIC/SWIFT",
+    "copy": "Copier",
+    "copied": "Copié"
+  },
   "rsvp": {
     "title": "Votre réponse",
     "subtitle": "Merci de confirmer avant le 15 septembre 2026.",
     "fields": {
       "name": "Votre nom",
       "email": "Email",
-      "plusOne": "Accompagnant·e (si applicable)",
-      "dietary": "Préférences alimentaires",
+      "guests": "Combien serez-vous ?",
+      "guestsHint": "Vous compris",
+      "adults": "Adultes",
+      "children": "Enfants",
+      "dietary": "Allergies ou préférences alimentaires",
       "message": "Un mot pour les mariés (facultatif)"
     },
     "attending": {
@@ -55,7 +92,7 @@
       "yes": "Avec joie",
       "no": "Avec regret"
     },
-    "submit": "Envoyer",
+    "submit": "Envoyer la réponse",
     "thanks": "Merci, nous avons bien reçu votre réponse."
   }
 }
