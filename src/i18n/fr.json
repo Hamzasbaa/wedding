@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "locale": "fr",
+    "dir": "ltr"
+  },
+  "couple": {
+    "firstName1": "Mariame",
+    "firstName2": "Hamza",
+    "and": "&"
+  },
+  "wedding": {
+    "dateLong": "14 novembre 2026",
+    "city": "Casablanca"
+  },
+  "home": {
+    "greeting": "Nous nous marions"
+  },
+  "language": {
+    "switchTo": "العربية"
+  }
+}

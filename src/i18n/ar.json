@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "locale": "ar",
+    "dir": "rtl"
+  },
+  "couple": {
+    "firstName1": "مريم",
+    "firstName2": "حمزة",
+    "and": "و"
+  },
+  "wedding": {
+    "dateLong": "14 نوفمبر 2026",
+    "city": "الدار البيضاء"
+  },
+  "home": {
+    "greeting": "نحن نتزوج"
+  },
+  "language": {
+    "switchTo": "Français"
+  }
+}

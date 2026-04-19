@@ -1,0 +1,42 @@
+/*
+ * Global styles for the wedding invitation.
+ * Tailwind 4 is imported here; design tokens (colors, fonts) will be refined
+ * in Phase 2 once the Claude Design output is ready. Placeholders for now.
+ */
+@import 'tailwindcss';
+
+@theme {
+  /* Provisional palette inspired by thedigitalyes.com — overwritten in Phase 2. */
+  --color-cream: #f5efe6;
+  --color-burgundy: #5b1a1e;
+  --color-gold: #d4a574;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: var(--color-cream);
+  color: var(--color-burgundy);
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* When Arabic is active, fall back to a readable Arabic font.
+   Real Arabic pairing comes in Phase 2. */
+html[dir='rtl'] body {
+  font-family:
+    'Noto Naskh Arabic',
+    'Geeza Pro',
+    system-ui,
+    sans-serif;
+}
