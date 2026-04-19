@@ -8,6 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/amiri':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/aref-ruqaa':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/cormorant-garamond':
+        specifier: ^5.2.11
+        version: 5.2.11
+      '@fontsource/parisienne':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@supabase/supabase-js':
         specifier: ^2.103.3
         version: 2.103.3
@@ -216,6 +228,18 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource/amiri@5.2.8':
+    resolution: {integrity: sha512-HT/wBlEC/ummjXWg5yH+V0Tzw1vITtI9UM8mwxhwOkNZWD2zuie5vXpAVSCZORArT/LUQ4NP0fRcjiElUwI/8A==}
+
+  '@fontsource/aref-ruqaa@5.2.8':
+    resolution: {integrity: sha512-SQ74sGHRdxqFeydiY0aKat4z6TN+JmaP6BNLjPCyovgjvn5Nbj5Kl/YlVDzAJlv1tuvHAvm945kA/g5/gh0qJw==}
+
+  '@fontsource/cormorant-garamond@5.2.11':
+    resolution: {integrity: sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA==}
+
+  '@fontsource/parisienne@5.2.8':
+    resolution: {integrity: sha512-64BCYbI6zh9//1yGJe/IXyG0f2AWN1gfXDyGa3euYyTvjFMdkxFKhmXyJDMcLLO1MDqggEz+9uuJZDBKkTJpPw==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -1529,6 +1553,14 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
+
+  '@fontsource/amiri@5.2.8': {}
+
+  '@fontsource/aref-ruqaa@5.2.8': {}
+
+  '@fontsource/cormorant-garamond@5.2.11': {}
+
+  '@fontsource/parisienne@5.2.8': {}
 
   '@humanfs/core@0.19.2':
     dependencies:

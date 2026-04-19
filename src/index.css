@@ -1,42 +1,93 @@
 /*
- * Global styles for the wedding invitation.
- * Tailwind 4 is imported here; design tokens (colors, fonts) will be refined
- * in Phase 2 once the Claude Design output is ready. Placeholders for now.
+ * Global styles for mariameandhamza.com.
+ * Tailwind 4 + design tokens from DESIGN.md. Typography self-hosted via Fontsource.
  */
 @import 'tailwindcss';
 
 @theme {
-  /* Provisional palette inspired by thedigitalyes.com — overwritten in Phase 2. */
-  --color-cream: #f5efe6;
-  --color-burgundy: #5b1a1e;
-  --color-gold: #d4a574;
+  /* Palette — paper, blush, ink, gold. Opacity variants done inline with color-mix or /xx modifiers. */
+  --color-paper: #faf7f2;
+  --color-blush: #e8c7c3;
+  --color-ink: #3d2e35;
+  --color-ink-soft: rgba(61, 46, 53, 0.6); /* 60% ink */
+  --color-ink-faint: rgba(61, 46, 53, 0.1); /* 10% ink — hairlines */
+  --color-gold: #c9a66b;
+
+  /* Typography families */
+  --font-serif: 'Cormorant Garamond', 'Hoefler Text', Georgia, serif;
+  --font-script: 'Parisienne', 'Apple Chancery', cursive;
+  --font-arabic-display: 'Aref Ruqaa', 'Amiri', 'Geeza Pro', 'Noto Naskh Arabic', serif;
+  --font-arabic-body: 'Amiri', 'Geeza Pro', 'Noto Naskh Arabic', serif;
+
+  /* Type scale (from DESIGN.md, locked via web-typography skill) */
+  --fs-display: clamp(5rem, 22vw, 16rem);
+  --fs-section: clamp(2rem, 6vw, 5rem);
+  --fs-body-lg: clamp(1.125rem, 1vw + 0.9rem, 1.25rem);
+  --fs-body: 1.125rem;
+  --fs-meta: 0.75rem;
+  --fs-monogram: 2.5rem;
+  --fs-invocation: 1rem;
+
+  /* Line height */
+  --lh-display: 1.02;
+  --lh-section: 1.15;
+  --lh-body: 1.65;
+  --lh-body-ar: 1.75;
+
+  /* Tracking — Latin only, never on Arabic */
+  --tracking-display: -0.035em;
+  --tracking-meta: 0.2em;
+
+  /* Easing */
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-expo-in-out: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 html,
 body,
 #root {
   min-height: 100%;
-  background-color: var(--color-cream);
-  color: var(--color-burgundy);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
 }
 
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* When Arabic is active, fall back to a readable Arabic font.
-   Real Arabic pairing comes in Phase 2. */
+/* Arabic mode: swap body font and give lines more breathing room for ascenders + diacritics. */
 html[dir='rtl'] body {
-  font-family:
-    'Noto Naskh Arabic',
-    'Geeza Pro',
-    system-ui,
-    sans-serif;
+  font-family: var(--font-arabic-body);
+  line-height: var(--lh-body-ar);
+}
+
+/* Branded text selection */
+::selection {
+  background: var(--color-blush);
+  color: var(--color-ink);
+}
+
+/* Balance headlines to avoid orphan single words on the last line. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* Reduce motion — respect the user's OS setting */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
