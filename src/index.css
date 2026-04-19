@@ -19,17 +19,20 @@
   --font-arabic-display: 'Aref Ruqaa', 'Amiri', 'Geeza Pro', 'Noto Naskh Arabic', serif;
   --font-arabic-body: 'Amiri', 'Geeza Pro', 'Noto Naskh Arabic', serif;
 
-  /* Type scale (from DESIGN.md, locked via web-typography skill) */
-  --fs-display: clamp(5rem, 22vw, 16rem);
+  /* Type scale — calibrated for a wedding invitation, not a billboard.
+     Post-audit via refactoring-ui skill: display capped at 9rem, invitation line
+     added at body-lg to create the missing secondary tier. */
+  --fs-display: clamp(4.5rem, 16vw, 9rem); /* 72 → 16vw → 144px */
   --fs-section: clamp(2rem, 6vw, 5rem);
+  --fs-invitation: clamp(1.125rem, 1.2vw + 0.8rem, 1.5rem); /* mid-tier italic line */
   --fs-body-lg: clamp(1.125rem, 1vw + 0.9rem, 1.25rem);
   --fs-body: 1.125rem;
+  --fs-invocation: 1.125rem; /* 18px — readable, not whispered */
   --fs-meta: 0.75rem;
   --fs-monogram: 2.5rem;
-  --fs-invocation: 1rem;
 
   /* Line height */
-  --lh-display: 1.02;
+  --lh-display: 1.1; /* 1.02 was too tight for stacked names with ampersand between */
   --lh-section: 1.15;
   --lh-body: 1.65;
   --lh-body-ar: 1.75;
