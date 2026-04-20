@@ -1,11 +1,11 @@
 /*
  * Global styles for mariameandhamza.com.
- * Tailwind 4 + design tokens from DESIGN.md. Typography self-hosted via Fontsource.
+ * Tailwind 4 + design tokens from DESIGN.md. French-only, LTR only.
  */
 @import 'tailwindcss';
 
 @theme {
-  /* Palette — paper, blush, ink, gold. Opacity variants done inline with color-mix or /xx modifiers. */
+  /* Palette — paper, blush, ink, gold. */
   --color-paper: #faf7f2;
   --color-blush: #e8c7c3;
   --color-ink: #3d2e35;
@@ -16,28 +16,23 @@
   /* Typography families */
   --font-serif: 'Cormorant Garamond', 'Hoefler Text', Georgia, serif;
   --font-script: 'Parisienne', 'Apple Chancery', cursive;
-  --font-arabic-display: 'Aref Ruqaa', 'Amiri', 'Geeza Pro', 'Noto Naskh Arabic', serif;
-  --font-arabic-body: 'Amiri', 'Geeza Pro', 'Noto Naskh Arabic', serif;
 
-  /* Type scale — calibrated for a wedding invitation, not a billboard.
-     Post-audit via refactoring-ui skill: display capped at 9rem, invitation line
-     added at body-lg to create the missing secondary tier. */
-  --fs-display: clamp(4.5rem, 16vw, 9rem); /* 72 → 16vw → 144px */
+  /* Type scale */
+  --fs-display: clamp(4.5rem, 16vw, 9rem);
   --fs-section: clamp(2rem, 6vw, 5rem);
-  --fs-invitation: clamp(1.125rem, 1.2vw + 0.8rem, 1.5rem); /* mid-tier italic line */
+  --fs-invitation: clamp(1.125rem, 1.2vw + 0.8rem, 1.5rem);
   --fs-body-lg: clamp(1.125rem, 1vw + 0.9rem, 1.25rem);
   --fs-body: 1.125rem;
-  --fs-invocation: 1.125rem; /* 18px — readable, not whispered */
+  --fs-invocation: 1.125rem;
   --fs-meta: 0.75rem;
   --fs-monogram: 2.5rem;
 
   /* Line height */
-  --lh-display: 1.1; /* 1.02 was too tight for stacked names with ampersand between */
+  --lh-display: 1.1;
   --lh-section: 1.15;
   --lh-body: 1.65;
-  --lh-body-ar: 1.75;
 
-  /* Tracking — Latin only, never on Arabic */
+  /* Tracking */
   --tracking-display: -0.035em;
   --tracking-meta: 0.2em;
 
@@ -62,12 +57,6 @@ body {
   line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Arabic mode: swap body font and give lines more breathing room for ascenders + diacritics. */
-html[dir='rtl'] body {
-  font-family: var(--font-arabic-body);
-  line-height: var(--lh-body-ar);
 }
 
 /* Branded text selection */

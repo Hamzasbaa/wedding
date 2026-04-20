@@ -11,9 +11,6 @@ interface VenueCardProps {
 }
 
 function VenueCard({ role, name, city }: VenueCardProps) {
-  const { i18n } = useTranslation()
-  const displayFont = i18n.language === 'ar' ? 'var(--font-arabic-display)' : 'var(--font-serif)'
-
   return (
     <article
       className="flex flex-col items-center gap-4 px-6 py-10 text-center"
@@ -32,7 +29,7 @@ function VenueCard({ role, name, city }: VenueCardProps) {
       <h3
         className="italic"
         style={{
-          fontFamily: displayFont,
+          fontFamily: 'var(--font-serif)',
           fontSize: 'var(--fs-invitation)',
           fontWeight: 500,
         }}

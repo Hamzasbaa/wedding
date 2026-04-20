@@ -22,10 +22,9 @@
     "cta": "Cliquez sur le sceau pour ouvrir"
   },
   "reveal": {
-    "prompt": "Grattez pour découvrir la date",
-    "hint": "Grattez les trois cercles",
-    "tagline": "On se marie !",
-    "enter": "Entrer"
+    "title": "La date",
+    "hint": "Grattez pour découvrir",
+    "tagline": "On se marie !"
   },
   "countdown": {
     "title": "Compte à rebours",

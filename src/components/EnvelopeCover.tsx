@@ -1,13 +1,11 @@
 // Envelope cover — the signature opening moment.
-// A centered paper envelope with a wax seal. Click anywhere on the envelope
-// (or press Enter/Space on the seal) and the flap opens, the seal lifts off,
-// and the whole envelope fades away — revealing the scratch gate beneath.
+// Full-bleed envelope illustration filling the viewport. A terracotta wax seal
+// stamped "M&H" in Parisienne sits where the flap meets the body. Click the
+// envelope → seal scales and fades, flap opens, envelope fades out, the
+// invitation below is revealed.
 //
 // Persistence: sessionStorage key 'envelope-opened' so internal navigation
-// (Admin → home) doesn't re-trigger. Fresh tab re-plays the moment.
-//
-// A11y: the whole envelope is a button with aria-label; keyboard Enter/Space
-// opens it. Reduced-motion respected via the global CSS rule.
+// doesn't re-trigger. Fresh tab replays.
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -23,11 +21,11 @@ export function EnvelopeCover({ onOpened }: EnvelopeCoverProps) {
 
   useEffect(() => {
     if (!opening) return
-    const t1 = setTimeout(() => {
+    const tid = setTimeout(() => {
       sessionStorage.setItem(SESSION_KEY, '1')
       onOpened()
     }, 1400)
-    return () => clearTimeout(t1)
+    return () => clearTimeout(tid)
   }, [opening, onOpened])
 
   function handleOpen() {
@@ -44,7 +42,7 @@ export function EnvelopeCover({ onOpened }: EnvelopeCoverProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
+      className="fixed inset-0 z-50 flex items-center justify-center"
       style={{
         backgroundColor: 'var(--color-paper)',
         opacity: opening ? 0 : 1,
@@ -56,27 +54,28 @@ export function EnvelopeCover({ onOpened }: EnvelopeCoverProps) {
         type="button"
         onClick={handleOpen}
         onKeyDown={handleKey}
-        aria-label="Open the invitation"
+        aria-label={t('envelope.cta')}
         className="relative block cursor-pointer border-none bg-transparent p-0"
         style={{
-          width: 'min(420px, 80vw)',
-          aspectRatio: '5 / 7',
-          perspective: '1200px',
+          width: 'min(95vw, 95vh * 0.72)',
+          aspectRatio: '18 / 25',
+          maxHeight: '95vh',
+          perspective: '1600px',
         }}
       >
-        {/* Envelope body (back layer — the card behind the flap) */}
+        {/* Envelope body — the pocket behind the flap */}
         <div
           className="absolute inset-0"
           style={{
-            backgroundColor: '#f4ede3',
+            backgroundColor: '#f2ebdf',
             boxShadow:
-              '0 1px 0 rgba(61, 46, 53, 0.05), 0 30px 60px -20px rgba(61, 46, 53, 0.2), 0 15px 30px -15px rgba(61, 46, 53, 0.15)',
+              '0 1px 0 rgba(61, 46, 53, 0.05), 0 40px 80px -30px rgba(61, 46, 53, 0.25), 0 20px 40px -20px rgba(61, 46, 53, 0.18)',
           }}
         />
 
-        {/* Diagonal fold lines — envelope side gussets, hairlines only */}
+        {/* Diagonal fold lines — side gussets, hairlines only */}
         <svg
-          className="absolute inset-0"
+          className="absolute inset-0 h-full w-full"
           viewBox="0 0 100 140"
           preserveAspectRatio="none"
           aria-hidden
@@ -84,18 +83,20 @@ export function EnvelopeCover({ onOpened }: EnvelopeCoverProps) {
           <path
             d="M 0 0 L 50 55 L 100 0"
             fill="none"
-            stroke="rgba(61, 46, 53, 0.08)"
-            strokeWidth="0.5"
+            stroke="rgba(61, 46, 53, 0.1)"
+            strokeWidth="0.35"
+            vectorEffect="non-scaling-stroke"
           />
           <path
             d="M 0 140 L 50 85 L 100 140"
             fill="none"
-            stroke="rgba(61, 46, 53, 0.08)"
-            strokeWidth="0.5"
+            stroke="rgba(61, 46, 53, 0.1)"
+            strokeWidth="0.35"
+            vectorEffect="non-scaling-stroke"
           />
         </svg>
 
-        {/* Upper triangular flap — this is what rotates open */}
+        {/* Upper triangular flap — rotates open */}
         <div
           className="absolute left-0 right-0 top-0"
           style={{
@@ -113,69 +114,42 @@ export function EnvelopeCover({ onOpened }: EnvelopeCoverProps) {
             preserveAspectRatio="none"
             aria-hidden
           >
-            {/* Flap as a triangle reaching down to the mid-envelope point */}
-            <path d="M 0 0 L 100 0 L 50 70 Z" fill="#ece3d5" />
+            <path d="M 0 0 L 100 0 L 50 70 Z" fill="#ebe1d0" />
             <path
               d="M 0 0 L 50 70 L 100 0"
               fill="none"
-              stroke="rgba(61, 46, 53, 0.12)"
-              strokeWidth="0.4"
+              stroke="rgba(61, 46, 53, 0.15)"
+              strokeWidth="0.35"
+              vectorEffect="non-scaling-stroke"
             />
           </svg>
         </div>
 
-        {/* Wax seal — sits on the flap's tip (center of envelope) */}
+        {/* Wax seal — on top of everything, centered where flap tip meets body */}
         <div
           className="absolute left-1/2 top-1/2"
           style={{
-            width: 96,
-            height: 96,
-            marginLeft: -48,
-            marginTop: -48,
-            zIndex: 3,
-            transform: opening ? 'scale(1.15) translateY(-12px)' : 'scale(1)',
+            width: 'min(22vmin, 180px)',
+            height: 'min(22vmin, 180px)',
+            transform: opening
+              ? 'translate(-50%, -50%) scale(1.2) translateY(-14px)'
+              : 'translate(-50%, -50%) scale(1)',
             opacity: opening ? 0 : 1,
             transition:
-              'transform 500ms var(--ease-expo-out), opacity 500ms var(--ease-expo-out) 200ms',
+              'transform 600ms var(--ease-expo-out), opacity 600ms var(--ease-expo-out) 200ms',
             pointerEvents: 'none',
+            zIndex: 3,
           }}
         >
           <WaxSeal />
-        </div>
-
-        {/* Names whisper on the lower half of the envelope */}
-        <div
-          className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-10"
-          style={{ height: '50%', zIndex: 1 }}
-          aria-hidden
-        >
-          <div
-            className="uppercase"
-            style={{
-              fontSize: 'var(--fs-meta)',
-              letterSpacing: 'var(--tracking-meta)',
-              color: 'var(--color-ink-soft)',
-            }}
-          >
-            Mariame & Hamza
-          </div>
-          <div
-            className="mt-2 uppercase"
-            style={{
-              fontSize: 'var(--fs-meta)',
-              letterSpacing: 'var(--tracking-meta)',
-              color: 'var(--color-ink-faint)',
-            }}
-          >
-            Casablanca
-          </div>
         </div>
       </button>
 
       {/* Call to action below the envelope */}
       <p
-        className="mt-10 italic"
+        className="absolute italic"
         style={{
+          bottom: 'max(2rem, 5vh)',
           fontFamily: 'var(--font-serif)',
           fontSize: 'var(--fs-body)',
           color: 'var(--color-ink-soft)',
@@ -189,32 +163,63 @@ export function EnvelopeCover({ onOpened }: EnvelopeCoverProps) {
   )
 }
 
+// Wax seal: SVG with irregular edge (slight wobble in the circle path),
+// radial gradient for dome/glossy-matte look, drop shadow for depth.
+// "M&H" monogram in Parisienne script, paper-colored with a soft inner shadow.
 function WaxSeal() {
   return (
     <div className="relative h-full w-full">
-      {/* Outer wax disc with soft drip shadow */}
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background:
-            'radial-gradient(circle at 35% 30%, #b84a42 0%, #9b362e 55%, #7a2721 100%)',
-          boxShadow:
-            'inset 0 -4px 8px rgba(0,0,0,0.25), inset 0 4px 6px rgba(255,255,255,0.15), 0 4px 10px rgba(122, 39, 33, 0.35)',
-        }}
-      />
-      {/* Monogram — Parisienne ampersand, paper-colored */}
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 100 100"
+        aria-hidden
+      >
+        <defs>
+          <radialGradient id="wax-dome" cx="38%" cy="32%" r="70%">
+            <stop offset="0%" stopColor="#c45248" />
+            <stop offset="40%" stopColor="#9e3a32" />
+            <stop offset="85%" stopColor="#7a2721" />
+            <stop offset="100%" stopColor="#5e1c18" />
+          </radialGradient>
+          <radialGradient id="wax-gloss" cx="35%" cy="25%" r="25%">
+            <stop offset="0%" stopColor="rgba(255, 220, 200, 0.6)" />
+            <stop offset="100%" stopColor="rgba(255, 220, 200, 0)" />
+          </radialGradient>
+          <filter id="wax-shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="2.5" floodColor="#5a1a15" floodOpacity="0.45" />
+          </filter>
+        </defs>
+
+        {/* Irregular wax disc — slightly wobbly circle like melted wax */}
+        <path
+          filter="url(#wax-shadow)"
+          fill="url(#wax-dome)"
+          d="M 50 4
+             C 68 4, 84 14, 92 32
+             C 98 48, 97 64, 88 78
+             C 80 92, 62 98, 48 96
+             C 30 94, 14 82, 8 64
+             C 4 48, 8 30, 20 18
+             C 30 8, 40 4, 50 4 Z"
+        />
+        {/* Gloss highlight */}
+        <ellipse cx="38" cy="30" rx="22" ry="14" fill="url(#wax-gloss)" />
+      </svg>
+
+      {/* Monogram */}
       <div
         className="absolute inset-0 flex items-center justify-center"
         style={{
           fontFamily: 'var(--font-script)',
-          fontSize: 56,
-          color: '#faf0e0',
+          fontSize: 'min(9vmin, 72px)',
+          color: '#f5e6cc',
           lineHeight: 1,
-          transform: 'translateY(-2px)',
-          textShadow: '0 1px 1px rgba(0,0,0,0.25)',
+          letterSpacing: '-0.04em',
+          transform: 'translateY(-3%)',
+          textShadow: '0 1px 1px rgba(0, 0, 0, 0.35), 0 0 6px rgba(255, 220, 180, 0.15)',
         }}
       >
-        &amp;
+        M&amp;H
       </div>
     </div>
   )

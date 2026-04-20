@@ -1,11 +1,11 @@
 // Public invitation page — composes the full flow.
-// Two opening beats: envelope (wax seal, click to open) → scratch (reveal the date).
-// Then: hero → countdown → story → schedule → venues → gifts → rsvp → footer.
+// Envelope (click to open) → hero → scratch reveal → countdown → story →
+// schedule → venues → gifts → rsvp → footer.
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
 import { EnvelopeCover, wasEnvelopeOpened } from '@/components/EnvelopeCover'
-import { ScratchGate, wasInvitationOpened } from '@/components/ScratchGate'
+import { ScratchReveal } from '@/sections/ScratchReveal'
 import { Countdown } from '@/sections/Countdown'
 import { Story } from '@/sections/Story'
 import { Schedule } from '@/sections/Schedule'
@@ -14,24 +14,19 @@ import { Gifts } from '@/sections/Gifts'
 import { Rsvp } from '@/sections/Rsvp'
 
 export function Invitation() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const [envelopeOpen, setEnvelopeOpen] = useState<boolean>(() => wasEnvelopeOpened())
-  const [opened, setOpened] = useState<boolean>(() => wasInvitationOpened())
-
-  const displayFont =
-    i18n.language === 'ar' ? 'var(--font-arabic-display)' : 'var(--font-serif)'
 
   return (
     <>
       {!envelopeOpen && <EnvelopeCover onOpened={() => setEnvelopeOpen(true)} />}
-      {envelopeOpen && !opened && <ScratchGate onEntered={() => setOpened(true)} />}
 
       {/* Hero */}
       <section className="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-6 py-24 text-center">
         <p
           className="mb-20"
           style={{
-            fontFamily: 'var(--font-arabic-body)',
+            fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
             fontSize: 'var(--fs-invocation)',
             color: 'var(--color-ink-soft)',
           }}
@@ -52,10 +47,10 @@ export function Invitation() {
 
         <div
           style={{
-            fontFamily: displayFont,
+            fontFamily: 'var(--font-serif)',
             fontSize: 'var(--fs-display)',
             lineHeight: 'var(--lh-display)',
-            letterSpacing: i18n.language === 'ar' ? 'normal' : 'var(--tracking-display)',
+            letterSpacing: 'var(--tracking-display)',
             fontWeight: 600,
           }}
         >
@@ -84,7 +79,7 @@ export function Invitation() {
         <p
           className="max-w-md italic"
           style={{
-            fontFamily: displayFont,
+            fontFamily: 'var(--font-serif)',
             fontSize: 'var(--fs-invitation)',
             lineHeight: 1.4,
           }}
@@ -93,13 +88,13 @@ export function Invitation() {
         </p>
 
         <div className="mt-10">
-          <p style={{ fontFamily: displayFont, fontSize: 'var(--fs-body-lg)' }}>
+          <p style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--fs-body-lg)' }}>
             {t('wedding.dateLong')}
           </p>
           <p
             className="mt-1"
             style={{
-              fontFamily: displayFont,
+              fontFamily: 'var(--font-serif)',
               fontSize: 'var(--fs-body)',
               color: 'var(--color-ink-soft)',
             }}
@@ -108,6 +103,9 @@ export function Invitation() {
           </p>
         </div>
       </section>
+
+      <SectionDivider />
+      <ScratchReveal />
 
       <SectionDivider />
       <Countdown />
@@ -129,7 +127,6 @@ export function Invitation() {
 
       <SectionDivider />
 
-      {/* Minimal footer */}
       <footer className="py-12 text-center">
         <p
           className="uppercase"

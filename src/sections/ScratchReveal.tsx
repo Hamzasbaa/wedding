@@ -1,51 +1,21 @@
-// Full-viewport opening moment: three scratch circles reveal 14 · 11 · 2026.
-// Once all three are mostly cleared (>55% pixels erased), the gate fades out
-// and the invitation below takes over.
-//
-// Persistence: sessionStorage so the gesture re-plays on a fresh tab but not
-// on an internal navigation (Admin → home).
-//
-// Reduced-motion: the gate still appears but scratching is bypassed with a
-// single "Entrer" button so no dragging is required.
-//
-// A11y: each circle is a button with aria-label; keyboard Enter/Space also reveals.
+// Scratch-to-reveal section — sits between Hero and Countdown.
+// Non-blocking: guests scroll past it or interact. Three gold coins cover
+// the date 14 · 11 · 2026. Drag/click to scratch (or keyboard Enter on a
+// focused coin). When all three are >55% cleared, the "On se marie !"
+// tagline fades in; the rest of the page is always visible below.
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { SectionTitle } from '@/components/SectionTitle'
 
-const SESSION_KEY = 'invitation-opened'
-const SCRATCH_THRESHOLD = 0.55 // 55% cleared = revealed
+const SCRATCH_THRESHOLD = 0.55
 const CIRCLE_SIZE = 140
-
-interface ScratchGateProps {
-  onEntered: () => void
-}
 
 const DATE_PARTS = ['14', '11', '2026']
 
-export function ScratchGate({ onEntered }: ScratchGateProps) {
+export function ScratchReveal() {
   const { t } = useTranslation()
   const [revealed, setRevealed] = useState<boolean[]>([false, false, false])
-  const [leaving, setLeaving] = useState(false)
-  const prefersReduced = useRef(false)
-
-  useEffect(() => {
-    prefersReduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  }, [])
-
   const allRevealed = revealed.every(Boolean)
-
-  useEffect(() => {
-    if (!allRevealed) return
-    const t1 = setTimeout(() => setLeaving(true), 1600)
-    const t2 = setTimeout(() => {
-      sessionStorage.setItem(SESSION_KEY, '1')
-      onEntered()
-    }, 2400)
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-    }
-  }, [allRevealed, onEntered])
 
   function handleRevealed(index: number) {
     setRevealed((prev) => {
@@ -57,29 +27,11 @@ export function ScratchGate({ onEntered }: ScratchGateProps) {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
-      style={{
-        backgroundColor: 'var(--color-paper)',
-        opacity: leaving ? 0 : 1,
-        transition: 'opacity 700ms var(--ease-expo-out)',
-        pointerEvents: leaving ? 'none' : 'auto',
-      }}
-    >
-      <p
-        className="mb-4"
-        style={{
-          fontFamily: 'var(--font-script)',
-          fontSize: 'clamp(3rem, 8vw, 5rem)',
-          color: 'var(--color-gold)',
-          lineHeight: 1,
-        }}
-      >
-        {t('reveal.prompt')}
-      </p>
+    <section className="mx-auto max-w-3xl px-6 py-16 text-center">
+      <SectionTitle>{t('reveal.title')}</SectionTitle>
 
       <p
-        className="mb-16 uppercase"
+        className="mx-auto mt-4 uppercase"
         style={{
           fontSize: 'var(--fs-meta)',
           letterSpacing: 'var(--tracking-meta)',
@@ -89,7 +41,7 @@ export function ScratchGate({ onEntered }: ScratchGateProps) {
         {t('reveal.hint')}
       </p>
 
-      <div className="flex items-center gap-4 sm:gap-8">
+      <div className="mt-12 flex items-center justify-center gap-4 sm:gap-8">
         {DATE_PARTS.map((value, index) => (
           <ScratchCircle
             key={index}
@@ -102,7 +54,7 @@ export function ScratchGate({ onEntered }: ScratchGateProps) {
       </div>
 
       <p
-        className="mt-16 italic"
+        className="mt-10 italic"
         style={{
           fontFamily: 'var(--font-script)',
           fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
@@ -114,7 +66,7 @@ export function ScratchGate({ onEntered }: ScratchGateProps) {
       >
         {t('reveal.tagline')}
       </p>
-    </div>
+    </section>
   )
 }
 
@@ -141,7 +93,6 @@ function ScratchCircle({ index, value, revealed, onRevealed }: ScratchCircleProp
     canvas.height = CIRCLE_SIZE * dpr
     ctx.scale(dpr, dpr)
 
-    // Gold coin cover — warm, slightly textured via radial gradient.
     const gradient = ctx.createRadialGradient(
       CIRCLE_SIZE / 2,
       CIRCLE_SIZE / 2,
@@ -179,7 +130,6 @@ function ScratchCircle({ index, value, revealed, onRevealed }: ScratchCircleProp
     ctx.arc(x, y, 26, 0, Math.PI * 2)
     ctx.fill()
 
-    // Throttle percent checks — every few strokes is enough.
     lastClearCheck.current += 1
     if (lastClearCheck.current % 4 !== 0) return
 
@@ -190,7 +140,6 @@ function ScratchCircle({ index, value, revealed, onRevealed }: ScratchCircleProp
       if (imageData.data[i] === 0) cleared++
     }
     if (cleared / pixels > SCRATCH_THRESHOLD) {
-      // Clear everything for a clean reveal.
       ctx.globalCompositeOperation = 'source-over'
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       onRevealed()
@@ -228,12 +177,8 @@ function ScratchCircle({ index, value, revealed, onRevealed }: ScratchCircleProp
   return (
     <div
       className="relative flex items-center justify-center"
-      style={{
-        width: CIRCLE_SIZE,
-        height: CIRCLE_SIZE,
-      }}
+      style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
     >
-      {/* Revealed value sits underneath, visible as canvas clears. */}
       <div
         className="absolute inset-0 flex items-center justify-center"
         style={{
@@ -250,7 +195,7 @@ function ScratchCircle({ index, value, revealed, onRevealed }: ScratchCircleProp
         ref={canvasRef}
         role="button"
         tabIndex={0}
-        aria-label={`Reveal date part ${index + 1}`}
+        aria-label={`Révéler la partie ${index + 1} de la date`}
         aria-pressed={revealed}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -269,9 +214,4 @@ function ScratchCircle({ index, value, revealed, onRevealed }: ScratchCircleProp
       />
     </div>
   )
-}
-
-export function wasInvitationOpened(): boolean {
-  if (typeof window === 'undefined') return false
-  return sessionStorage.getItem(SESSION_KEY) === '1'
 }

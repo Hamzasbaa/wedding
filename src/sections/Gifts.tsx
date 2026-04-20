@@ -13,9 +13,8 @@ interface Account {
 }
 
 export function Gifts() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const accounts = t('gifts.accounts', { returnObjects: true }) as Account[]
-  const font = i18n.language === 'ar' ? 'var(--font-arabic-display)' : 'var(--font-serif)'
 
   return (
     <section className="mx-auto max-w-2xl px-6 py-16">
@@ -24,7 +23,7 @@ export function Gifts() {
       <p
         className="mx-auto mt-6 max-w-xl text-center italic"
         style={{
-          fontFamily: font,
+          fontFamily: 'var(--font-serif)',
           fontSize: 'var(--fs-invitation)',
           lineHeight: 1.5,
           color: 'var(--color-ink-soft)',

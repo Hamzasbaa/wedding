@@ -1,12 +1,10 @@
-// Live countdown to the wedding date: 14 November 2026, 16:00 Casablanca.
+// Live countdown to the wedding: 14 November 2026, 16:00 Casablanca (UTC+1).
 // Three stats separated by hairlines — days / hours / minutes.
-// Ticks every 60 seconds (minutes precision is enough; seconds would be noise).
-// Target stored as UTC to survive across viewer timezones.
+// Ticks every 60 seconds.
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
 
-// 14 Nov 2026 16:00 Casablanca (UTC+1 in November — Morocco is UTC+1 year-round).
 const TARGET = new Date('2026-11-14T15:00:00Z').getTime()
 
 interface Parts {
@@ -25,7 +23,7 @@ function partsUntil(targetMs: number, nowMs: number): Parts {
 }
 
 export function Countdown() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const [parts, setParts] = useState<Parts>(() => partsUntil(TARGET, Date.now()))
 
   useEffect(() => {
@@ -34,8 +32,6 @@ export function Countdown() {
     }, 60_000)
     return () => clearInterval(id)
   }, [])
-
-  const font = i18n.language === 'ar' ? 'var(--font-arabic-display)' : 'var(--font-serif)'
 
   const stats = [
     { value: parts.days, label: t('countdown.days') },
@@ -68,12 +64,12 @@ export function Countdown() {
             <div className="flex flex-col items-center justify-center px-2">
               <div
                 style={{
-                  fontFamily: font,
+                  fontFamily: 'var(--font-serif)',
                   fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
                   fontWeight: 500,
                   color: 'var(--color-ink)',
                   lineHeight: 1,
-                  letterSpacing: i18n.language === 'ar' ? 'normal' : '-0.02em',
+                  letterSpacing: '-0.02em',
                 }}
               >
                 {stat.value}
