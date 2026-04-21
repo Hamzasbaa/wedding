@@ -113,8 +113,11 @@ function PhotoBridge() {
   const points = t('bridge.points', { returnObjects: true }) as BridgePointData[]
 
   return (
-    <div className="mx-auto mt-24 max-w-3xl px-2">
-      <div className="grid grid-cols-[auto_1fr_auto_1fr_auto] items-center gap-2 sm:gap-4">
+    <div className="mx-auto mt-20 max-w-3xl px-2 sm:mt-24">
+      {/* Mobile: stacked vertically, each point has a vertical dashed line
+          below it leading into the next. Desktop: horizontal row with
+          dashed segments filling the space between points. */}
+      <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between sm:gap-4">
         <BridgePortrait point={BRIDGE_POINTS[0]} data={points[0]} />
         <DashedSegment />
         <BridgePortrait point={BRIDGE_POINTS[1]} data={points[1]} />
@@ -125,26 +128,53 @@ function PhotoBridge() {
   )
 }
 
+// Connects two bridge points. Renders as a short vertical dash on mobile
+// and a full-width horizontal dash on desktop — two elements, each hidden
+// at the other breakpoint. Simpler than trying to orient a single SVG
+// responsively.
 function DashedSegment() {
   return (
-    <div className="flex items-center justify-center" aria-hidden>
+    <>
+      {/* Mobile vertical connector */}
       <svg
-        className="w-full"
-        height="2"
-        viewBox="0 0 200 2"
+        className="sm:hidden"
+        width="2"
+        height="40"
+        viewBox="0 0 2 40"
         preserveAspectRatio="none"
+        aria-hidden
       >
         <line
-          x1="0"
-          y1="1"
-          x2="200"
-          y2="1"
+          x1="1"
+          y1="0"
+          x2="1"
+          y2="40"
           stroke="var(--color-ink-faint)"
           strokeWidth="1"
           strokeDasharray="4 4"
         />
       </svg>
-    </div>
+
+      {/* Desktop horizontal connector */}
+      <div className="hidden sm:block sm:flex-1" aria-hidden>
+        <svg
+          className="block w-full"
+          height="2"
+          viewBox="0 0 200 2"
+          preserveAspectRatio="none"
+        >
+          <line
+            x1="0"
+            y1="1"
+            x2="200"
+            y2="1"
+            stroke="var(--color-ink-faint)"
+            strokeWidth="1"
+            strokeDasharray="4 4"
+          />
+        </svg>
+      </div>
+    </>
   )
 }
 
@@ -173,7 +203,10 @@ function BridgePortrait({ point, data }: BridgePortraitProps) {
       <div
         className="relative flex items-center justify-center overflow-hidden rounded-full"
         style={{
-          width: 'clamp(60px, 15vw, 124px)',
+          // Bigger circles now that mobile stacks vertically — we have
+          // the whole viewport width per point instead of sharing it
+          // between three.
+          width: 'clamp(110px, 22vw, 140px)',
           aspectRatio: '1',
           backgroundColor:
             point.kind === 'photo' ? 'var(--color-blush)' : 'var(--color-paper)',
@@ -192,7 +225,7 @@ function BridgePortrait({ point, data }: BridgePortraitProps) {
             aria-label="Mariame et Hamza"
             style={{
               fontFamily: 'var(--font-script)',
-              fontSize: 'clamp(1rem, 2.6vw, 1.75rem)',
+              fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
               color: 'var(--color-gold)',
               lineHeight: 1,
               letterSpacing: '-0.04em',
