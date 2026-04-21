@@ -224,9 +224,15 @@ export function Rsvp() {
   )
 }
 
-// CountdownBadge — the visual anchor between the section title and the form.
-// Big gold number + italic "jours" on one baseline, flanked by two hairlines,
-// then the deadline date in small caps. Reads as "a date, not a status line."
+// CountdownBadge — date-first hierarchy.
+//
+// Previous version inverted the priority: "208" was loud (gold display),
+// the actual deadline was a tiny caps footer. Fixed: the deadline date
+// IS the hero of this block, the day count is a quiet italic support line.
+//
+// Typography is one family (Cormorant Garamond), one primary colour (ink);
+// the only gold is a 60px hairline mark above the label. Reads as editorial,
+// not dashboard.
 interface CountdownBadgeProps {
   days: number
 }
@@ -234,72 +240,22 @@ interface CountdownBadgeProps {
 function CountdownBadge({ days }: CountdownBadgeProps) {
   const { t } = useTranslation()
 
-  // Past the deadline: show a gentler line in the same slot.
-  if (days <= 0) {
-    return (
-      <p
-        className="mt-8 text-center uppercase"
-        style={{
-          fontSize: 'var(--fs-meta)',
-          letterSpacing: 'var(--tracking-meta)',
-          color: 'var(--color-ink-soft)',
-        }}
-      >
-        {t('rsvp.deadlineLabel')}
-      </p>
-    )
-  }
-
   return (
-    <div className="mt-10 flex flex-col items-center">
+    <div className="mt-10 flex flex-col items-center text-center">
+      {/* Decorative gold mark. */}
       <div
         aria-hidden
         style={{
-          width: 80,
+          width: 60,
           height: 1,
           backgroundColor: 'var(--color-gold)',
           opacity: 0.5,
         }}
       />
 
-      <div className="my-6 flex items-baseline gap-3">
-        <span
-          aria-label={`${days} jours`}
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(3.5rem, 10vw, 6rem)',
-            fontWeight: 500,
-            color: 'var(--color-gold)',
-            lineHeight: 0.95,
-            letterSpacing: '-0.025em',
-          }}
-        >
-          {days}
-        </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--fs-invitation)',
-            fontStyle: 'italic',
-            color: 'var(--color-ink)',
-          }}
-        >
-          {t('rsvp.unitDays')}
-        </span>
-      </div>
-
-      <div
-        aria-hidden
-        style={{
-          width: 80,
-          height: 1,
-          backgroundColor: 'var(--color-gold)',
-          opacity: 0.5,
-        }}
-      />
-
+      {/* Small-caps label — sets context. */}
       <p
-        className="mt-5 uppercase"
+        className="mt-6 uppercase"
         style={{
           fontSize: 'var(--fs-meta)',
           letterSpacing: 'var(--tracking-meta)',
@@ -308,6 +264,35 @@ function CountdownBadge({ days }: CountdownBadgeProps) {
       >
         {t('rsvp.deadlineLabel')}
       </p>
+
+      {/* The deadline — the hero of this block. */}
+      <p
+        className="mt-3"
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(2.25rem, 6vw, 3.75rem)',
+          fontWeight: 500,
+          color: 'var(--color-ink)',
+          letterSpacing: '-0.015em',
+          lineHeight: 1.1,
+        }}
+      >
+        {t('rsvp.deadlineDate')}
+      </p>
+
+      {/* Day count — quiet support line, only when the deadline is future. */}
+      {days > 0 && (
+        <p
+          className="mt-4 italic"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--fs-body)',
+            color: 'var(--color-ink-soft)',
+          }}
+        >
+          {t('rsvp.deadlineRemainder', { days })}
+        </p>
+      )}
     </div>
   )
 }

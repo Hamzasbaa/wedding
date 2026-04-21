@@ -10,11 +10,12 @@
     "and": "&"
   },
   "hero": {
-    "eyebrow": "après Paris",
     "subline": "On s'est dit oui à Paris. On se retrouve à Casablanca.",
     "dateLong": "14 novembre 2026",
     "city": "Casablanca",
-    "arabicMirror": "مريم و حمزة • ١٤ نوفمبر ٢٠٢٦ • الدار البيضاء"
+    "arabicNames": "مريم و حمزة",
+    "arabicDate": "١٤ نوفمبر ٢٠٢٦",
+    "arabicCity": "الدار البيضاء"
   },
   "bridge": {
     "parisLabel": "Paris",
@@ -34,8 +35,9 @@
   },
   "rsvp": {
     "title": "Votre réponse",
-    "unitDays": "jours",
-    "deadlineLabel": "Date limite · 1er août 2026",
+    "deadlineLabel": "Répondez avant le",
+    "deadlineDate": "1er août 2026",
+    "deadlineRemainder": "plus que {{days}} jours",
     "fields": {
       "name": "Votre nom",
       "email": "Email",

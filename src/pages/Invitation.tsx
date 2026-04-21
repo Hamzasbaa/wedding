@@ -76,17 +76,6 @@ function Hero() {
         {t('invocation')}
       </p>
 
-      <p
-        className="mb-6 uppercase"
-        style={{
-          fontSize: 'var(--fs-meta)',
-          letterSpacing: 'var(--tracking-meta)',
-          color: 'var(--color-ink-soft)',
-        }}
-      >
-        {t('hero.eyebrow')}
-      </p>
-
       {/* Names: horizontal on md+, stacked on mobile. */}
       <h1
         className="flex flex-col items-center md:flex-row md:items-baseline md:justify-center md:gap-8"
@@ -148,23 +137,29 @@ function Hero() {
           {t('hero.city')}
         </p>
 
-        {/* Arabic mirror — names, date, city in Arabic/RTL.
-            A quiet companion for the Arabophone guests (la Dada, parents,
-            family from Morocco). Rendered in the same family as the
-            invocation so the two Arabic lines feel kin. */}
-        <p
+        {/* Arabic mirror — names, date, city stacked RTL.
+            Same structure as the French lines above (names / date / city)
+            so it reads as a genuine translation, not decoration. */}
+        <div
           lang="ar"
           dir="rtl"
-          className="mt-8"
+          className="mt-10"
           style={{
             fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
-            fontSize: 'var(--fs-body)',
             color: 'var(--color-ink-soft)',
-            lineHeight: 1.8,
+            lineHeight: 1.7,
           }}
         >
-          {t('hero.arabicMirror')}
-        </p>
+          <p style={{ fontSize: 'var(--fs-body-lg)', color: 'var(--color-ink)' }}>
+            {t('hero.arabicNames')}
+          </p>
+          <p className="mt-1" style={{ fontSize: 'var(--fs-body)' }}>
+            {t('hero.arabicDate')}
+          </p>
+          <p style={{ fontSize: 'var(--fs-body)' }}>
+            {t('hero.arabicCity')}
+          </p>
+        </div>
       </div>
 
       {/* Scroll cue — discreet chevron, auto-fading. */}
