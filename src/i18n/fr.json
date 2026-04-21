@@ -11,7 +11,7 @@
     "and": "&"
   },
   "hero": {
-    "subline": "On s'est dit oui à Paris. On se retrouve à Casablanca.",
+    "subline": "Paris, c'était entre nous. Casablanca, c'est avec vous.",
     "dateLong": "14 novembre 2026",
     "city": "Casablanca",
     "arabicNames": "مريم و حمزة",
@@ -49,7 +49,7 @@
       "adults": "Adultes",
       "children": "Enfants",
       "message": "Un mot pour les mariés",
-      "messagePlaceholder": "Un mot, une promesse, une blague…"
+      "messagePlaceholder": "Une blague, une promesse, une suggestion pour le DJ. On lira tout."
     },
     "attending": {
       "question": "Serez-vous des nôtres ?",
@@ -66,7 +66,7 @@
   },
   "leJour": {
     "title": "Le jour",
-    "intro": "Un mariage marocain. La troupe Issawa vous accueille dès 17h, l'orchestre prend le relais à 19h. On danse jusqu'à 2h du matin.",
+    "intro": "Un mariage marocain. Accueil à 17h avec Issawa, orchestre à 19h, dîner à 23h, fin officielle à 2h. Officielle.",
     "timeline": [
       {
         "time": "17h",
@@ -86,7 +86,7 @@
       {
         "time": "00h",
         "label": "Pièce montée",
-        "detail": "Le cake, à notre façon."
+        "detail": "Le gâteau. À notre façon."
       },
       {
         "time": "02h",
@@ -109,11 +109,11 @@
     "items": [
       {
         "q": "Tenue",
-        "a": "Élégante. Costume, de préférence un caftan sinon robe de cocktail. Faites-vous plaisir, c'est un mariage marocain."
+        "a": "Élégante et colorée. Caftan pour les femmes si l'envie vous prend, sinon robe de cocktail. Costume pour les hommes. Faites-vous plaisir, c'est un mariage marocain."
       },
       {
         "q": "Se déplacer",
-        "a": "À Casablanca, le plus simple : les taxis rouges (paiement en espèces, il y aura un compteur normalement) ou Careem, l'équivalent marocain d'Uber."
+        "a": "Taxis rouges (compteur, en espèces) ou Careem, l'Uber local. Les deux marchent. Pas besoin de louer une voiture."
       },
       {
         "q": "Hôtels",

@@ -79,7 +79,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${
         font-style="italic"
         font-size="24"
         fill="${INK_SOFT}">
-    On s'est dit oui à Paris. On se retrouve à Casablanca.
+    Paris, c'était entre nous. Casablanca, c'est avec vous.
   </text>
 </svg>`
 
