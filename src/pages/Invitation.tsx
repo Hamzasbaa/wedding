@@ -220,7 +220,7 @@ function Hero() {
         aria-hidden
         style={{
           position: 'fixed',
-          bottom: 'max(1.25rem, env(safe-area-inset-bottom))',
+          bottom: 'calc(2.25rem + env(safe-area-inset-bottom))',
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 20,
