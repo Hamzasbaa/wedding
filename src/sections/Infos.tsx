@@ -18,7 +18,7 @@ export function Infos() {
   const items = t('infos.items', { returnObjects: true }) as FaqItem[]
 
   return (
-    <section className="mx-auto max-w-2xl px-6 py-16">
+    <section className="mx-auto max-w-2xl px-6 py-12 md:py-16">
       <SectionTitle>{t('infos.title')}</SectionTitle>
 
       <div className="mt-12 flex flex-col">

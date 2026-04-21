@@ -8,7 +8,7 @@ export function Farewell() {
   const { t } = useTranslation()
 
   return (
-    <footer className="mx-auto max-w-xl px-6 pb-20 pt-16 text-center">
+    <footer className="mx-auto max-w-xl px-6 pb-16 pt-12 md:pb-20 md:pt-16 text-center">
       <Reveal>
         <p
           style={{

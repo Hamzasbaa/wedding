@@ -30,7 +30,7 @@ export function DirectAddress() {
 
   return (
     <section
-      className="mx-auto flex max-w-2xl items-center justify-center px-6 py-20"
+      className="mx-auto flex max-w-2xl items-center justify-center px-6 py-14 md:py-16"
       aria-label="Un mot pour vous"
     >
       <p

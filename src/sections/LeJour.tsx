@@ -26,7 +26,7 @@ export function LeJour() {
   const items = t('leJour.timeline', { returnObjects: true }) as TimelineItem[]
 
   return (
-    <section className="mx-auto max-w-4xl px-6 py-16">
+    <section className="mx-auto max-w-4xl px-6 py-12 md:py-16">
       <SectionTitle>{t('leJour.title')}</SectionTitle>
 
       <Reveal delay={120}>

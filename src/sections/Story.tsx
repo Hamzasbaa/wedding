@@ -20,7 +20,7 @@ export function Story() {
   const { t } = useTranslation()
 
   return (
-    <section className="relative mx-auto max-w-5xl px-6 py-16">
+    <section className="relative mx-auto max-w-5xl px-6 py-12 md:py-16">
       <SectionTitle>{t('story.title')}</SectionTitle>
 
       <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-[2fr_3fr] md:items-start md:gap-16">

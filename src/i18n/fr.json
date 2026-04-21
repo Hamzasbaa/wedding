@@ -4,6 +4,7 @@
     "dir": "ltr"
   },
   "invocation": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+  "verse": "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
   "couple": {
     "firstName1": "Mariame",
     "firstName2": "Hamza",
@@ -47,7 +48,6 @@
       "guestsHint": "Vous compris",
       "adults": "Adultes",
       "children": "Enfants",
-      "dietary": "Allergies ou préférences",
       "message": "Un mot pour les mariés",
       "messagePlaceholder": "Un mot, une promesse, une blague…"
     },
@@ -66,20 +66,20 @@
   },
   "leJour": {
     "title": "Le jour",
-    "intro": "Un mariage marocain. La troupe Issawa vous accueille dès 18h, l'orchestre prend le relais à 20h. On danse jusqu'à 2h du matin.",
+    "intro": "Un mariage marocain. La troupe Issawa vous accueille dès 17h, l'orchestre prend le relais à 19h. On danse jusqu'à 2h du matin.",
     "timeline": [
       {
-        "time": "18h",
+        "time": "17h",
         "label": "Accueil & Issawa",
-        "detail": "La troupe ouvre la soirée. Gâteaux marocains, thé à la menthe, boissons."
+        "detail": "La troupe ouvre la soirée. Gâteaux marocains et thé à la menthe."
       },
       {
-        "time": "20h",
+        "time": "19h",
         "label": "Orchestre",
-        "detail": "Musique orientale. Toute la nuit."
+        "detail": "Musique marocaine. Toute la nuit."
       },
       {
-        "time": "22h",
+        "time": "23h",
         "label": "Dîner",
         "detail": "À table, tous ensemble."
       },
@@ -109,45 +109,21 @@
     "items": [
       {
         "q": "Tenue",
-        "a": "Élégante. Costume, robe de cocktail, caftan. Faites-vous plaisir, c'est un mariage marocain."
+        "a": "Élégante. Costume, de préférence un caftan sinon robe de cocktail. Faites-vous plaisir, c'est un mariage marocain."
       },
       {
-        "q": "Depuis l'aéroport",
-        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD."
+        "q": "Se déplacer",
+        "a": "À Casablanca, le plus simple : les taxis rouges (paiement en espèces, négociez la course avant de monter) ou Careem, l'équivalent marocain d'Uber."
       },
       {
         "q": "Hôtels",
-        "a": "Quartiers à viser : Gauthier, Racine, ou Ain Diab — proches du Palais Inès et agréables à vivre. On envoie une liste d'hôtels précise début septembre."
+        "a": "Quelques adresses proches du Palais Inès : Citadines Almaz Casablanca, Hilton Garden Inn Casablanca Sud, ibis Casablanca Nearshore, Le Zenith Hotel & Spa."
       },
       {
         "q": "Les enfants",
-        "a": "Oui, bienvenus. Indiquez-les dans le formulaire pour qu'on prévoie."
+        "a": "Oui, bienvenus — de préférence à partir de 5 ans, pour que vous profitiez de la soirée avec nous jusqu'au bout. Indiquez-les dans le formulaire pour qu'on prévoie."
       }
     ]
-  },
-  "cadeaux": {
-    "title": "Cadeaux",
-    "intro": "Votre présence est notre plus beau cadeau. Si vous voulez nous faire plaisir, nos coordonnées se cachent juste ici.",
-    "toggleOpen": "Voir les coordonnées →",
-    "toggleClose": "Masquer",
-    "accounts": [
-      {
-        "label": "En France",
-        "holder": "Hamza Sbaa",
-        "iban": "FR00 0000 0000 0000 0000 0000 000",
-        "bic": "XXXXXXXX"
-      },
-      {
-        "label": "Au Maroc",
-        "holder": "Mariame",
-        "iban": "MA00 0000 0000 0000 0000 0000 000",
-        "bic": "XXXXXXXX"
-      }
-    ],
-    "ibanLabel": "IBAN",
-    "bicLabel": "BIC/SWIFT",
-    "copy": "Copier",
-    "copied": "Copié"
   },
   "farewell": {
     "line": "À très vite.",

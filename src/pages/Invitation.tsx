@@ -1,14 +1,13 @@
 // Public invitation page.
 //
-// Section order (after the second audit — Le jour moved before RSVP so
-// guests know what they're signing up for):
-//   1. Hero       — names + date + city + "on" voice subline + Arabic mirror
-//   2. Story      — 4 paragraphs + civil-wedding photo + Paris→Casablanca photo bridge
-//   3. Le jour    — Moroccan wedding timeline + Palais Inès map
-//   4. Address    — one handwritten line speaking directly to the guest
-//   5. RSVP       — the ask, with the CountdownBadge anchor
-//   6. Infos      — FAQ (dress, airport + hotels, kids, contact)
-//   7. Cadeaux    — gated behind a click, labeled En France / Au Maroc
+// Section order:
+//   1. Hero       — invocation + Quranic verse + names + date + city + Arabic mirror
+//   2. Story      — 4 paragraphs + civil-wedding photo + 3-point photo bridge
+//   3. Le jour    — Moroccan wedding timeline
+//   4. Le lieu    — Palais Inès with address + map
+//   5. Address    — one handwritten line speaking directly to the guest
+//   6. RSVP       — the ask, with the CountdownBadge anchor
+//   7. Infos      — FAQ (Tenue, Se déplacer, Hôtels, Les enfants)
 //   8. Farewell   — one warm line, signature, contact fallback
 //
 // Only two section dividers remain: one between hero and story (bridges
@@ -25,7 +24,6 @@ import { Rsvp } from '@/sections/Rsvp'
 import { LeJour } from '@/sections/LeJour'
 import { LeLieu } from '@/sections/LeLieu'
 import { Infos } from '@/sections/Infos'
-import { Cadeaux } from '@/sections/Cadeaux'
 import { Farewell } from '@/sections/Farewell'
 
 export function Invitation() {
@@ -57,8 +55,6 @@ export function Invitation() {
         <SectionDivider />
         <Infos />
 
-        <Cadeaux />
-
         <Farewell />
       </main>
     </>
@@ -74,7 +70,9 @@ function Hero() {
   return (
     <section className="mx-auto flex min-h-[85vh] max-w-4xl flex-col items-center justify-center px-6 py-12 text-center md:min-h-screen md:py-20">
       <p
-        className="hero-anim-invoc mb-10 md:mb-14"
+        className="hero-anim-invoc"
+        dir="rtl"
+        lang="ar"
         style={{
           fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
           fontSize: 'var(--fs-invocation)',
@@ -82,6 +80,23 @@ function Hero() {
         }}
       >
         {t('invocation')}
+      </p>
+
+      {/* Quranic verse (Ar-Rum 30:21) — the "mawaddah wa rahmah" verse,
+          traditionally recited at Muslim weddings. Smaller than the
+          bismillah, max-width to wrap gracefully. */}
+      <p
+        className="hero-anim-invoc mx-auto mb-10 mt-4 max-w-md md:mb-14"
+        dir="rtl"
+        lang="ar"
+        style={{
+          fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
+          fontSize: 'var(--fs-body)',
+          color: 'var(--color-ink-soft)',
+          lineHeight: 1.9,
+        }}
+      >
+        {t('verse')}
       </p>
 
       {/* Names: horizontal on md+, stacked on mobile. Each piece animates

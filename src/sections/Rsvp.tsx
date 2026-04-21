@@ -91,10 +91,6 @@ export function Rsvp() {
       guest_name: String(data.get('guest_name') ?? '').trim(),
       email: String(data.get('email') ?? '').trim(),
       attending: attending === 'yes',
-      dietary_notes:
-        attending === 'yes'
-          ? String(data.get('dietary_notes') ?? '').trim() || undefined
-          : undefined,
       message: String(data.get('message') ?? '').trim() || undefined,
       language: 'fr',
     }
@@ -141,7 +137,7 @@ export function Rsvp() {
   if (status === 'success') {
     const yes = attending === 'yes'
     return (
-      <section id="rsvp" className="mx-auto max-w-xl px-6 py-16">
+      <section id="rsvp" className="mx-auto max-w-xl px-6 py-12 md:py-16">
         <SectionTitle>{t('rsvp.title')}</SectionTitle>
         <div className="mt-12 text-center">
           <p
@@ -162,7 +158,7 @@ export function Rsvp() {
   }
 
   return (
-    <section id="rsvp" className="mx-auto max-w-xl px-6 py-16">
+    <section id="rsvp" className="mx-auto max-w-xl px-6 py-12 md:py-16">
       <SectionTitle>{t('rsvp.title')}</SectionTitle>
 
       <CountdownBadge days={days} />
@@ -174,15 +170,12 @@ export function Rsvp() {
         <AttendingChoice value={attending} onChange={setAttending} />
 
         {attending === 'yes' && (
-          <>
-            <GuestCounters
-              adults={adults}
-              childCount={children}
-              onAdults={setAdults}
-              onChildren={setChildren}
-            />
-            <Field label={t('rsvp.fields.dietary')} name="dietary_notes" multiline />
-          </>
+          <GuestCounters
+            adults={adults}
+            childCount={children}
+            onAdults={setAdults}
+            onChildren={setChildren}
+          />
         )}
 
         <Field
