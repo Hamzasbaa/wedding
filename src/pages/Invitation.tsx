@@ -209,8 +209,6 @@ function Hero() {
       {/* Scroll cue — fixed to viewport bottom so it stays visible even
           when hero content overflows the fold on small phones. Fades out
           once the user starts scrolling (the signal has done its job).
-          Label + chevron: the word removes the "is the chevron decorative?"
-          ambiguity people were hitting when shared.
 
           Three nested layers by responsibility:
           - Outer: fixed positioning + scroll-fade
@@ -233,25 +231,13 @@ function Hero() {
       >
         <div className="hero-anim-chevron">
           <div
-            className="flex flex-col items-center gap-2.5"
             style={{
               animation: 'hero-scroll-cue 2.4s ease-in-out 1900ms infinite',
             }}
           >
-            <span
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: '0.7rem',
-                letterSpacing: '0.24em',
-                textTransform: 'uppercase',
-                color: 'var(--color-blush)',
-              }}
-            >
-              {t('hero.scrollCue')}
-            </span>
             <svg
-              width="22"
-              height="22"
+              width="34"
+              height="34"
               viewBox="0 0 24 24"
               fill="none"
               stroke="var(--color-ink)"
