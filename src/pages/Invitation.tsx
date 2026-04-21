@@ -1,144 +1,174 @@
-// Public invitation page — composes the full flow.
-// Envelope (click to open) → hero → scratch reveal → countdown → story →
-// schedule → venues → gifts → rsvp → footer.
-import { useState } from 'react'
+// Public invitation page.
+//
+// Section order follows the "emotional courtship" arc agreed in the audit:
+//   1. Hero       — names + date + city + one line in "on" voice
+//   2. Story      — three paragraphs + civil-wedding photo + Paris→Casablanca bridge
+//   3. Address    — one handwritten line speaking directly to the guest
+//   4. RSVP       — the ask, with the live days-until-wedding line built in
+//   5. Le jour    — prose placeholder until the venue is confirmed
+//   6. Infos      — FAQ (dress, airport, kids, contact)
+//   7. Cadeaux    — gated behind a click, labeled En France / Au Maroc
+//   8. Farewell   — one warm line, signature, contact fallback
+//
+// Everything the audit decided to kill (envelope cover, scratch reveal,
+// standalone countdown, the repeat-date footer) is gone.
 import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
-import { EnvelopeCover, wasEnvelopeOpened } from '@/components/EnvelopeCover'
-import { ScratchReveal } from '@/sections/ScratchReveal'
-import { Countdown } from '@/sections/Countdown'
+import { DirectAddress } from '@/components/DirectAddress'
 import { Story } from '@/sections/Story'
-import { Schedule } from '@/sections/Schedule'
-import { Venues } from '@/sections/Venues'
-import { Gifts } from '@/sections/Gifts'
 import { Rsvp } from '@/sections/Rsvp'
+import { LeJour } from '@/sections/LeJour'
+import { Infos } from '@/sections/Infos'
+import { Cadeaux } from '@/sections/Cadeaux'
+import { Farewell } from '@/sections/Farewell'
 
 export function Invitation() {
-  const { t } = useTranslation()
-  const [envelopeOpen, setEnvelopeOpen] = useState<boolean>(() => wasEnvelopeOpened())
-
   return (
     <>
-      {!envelopeOpen && <EnvelopeCover onOpened={() => setEnvelopeOpen(true)} />}
-
-      {/* Hero */}
-      <section className="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center px-6 py-24 text-center">
-        <p
-          className="mb-20"
-          style={{
-            fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
-            fontSize: 'var(--fs-invocation)',
-            color: 'var(--color-ink-soft)',
-          }}
-        >
-          {t('invocation')}
-        </p>
-
-        <p
-          className="mb-6 uppercase"
-          style={{
-            fontSize: 'var(--fs-meta)',
-            letterSpacing: 'var(--tracking-meta)',
-            color: 'var(--color-ink-soft)',
-          }}
-        >
-          {t('wedding.afterParis')}
-        </p>
-
-        <div
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--fs-display)',
-            lineHeight: 'var(--lh-display)',
-            letterSpacing: 'var(--tracking-display)',
-            fontWeight: 600,
-          }}
-        >
-          <div>{t('couple.firstName1')}</div>
-          <div
-            style={{
-              fontStyle: 'italic',
-              color: 'var(--color-blush)',
-              fontWeight: 400,
-              fontSize: '0.4em',
-              lineHeight: 1.4,
-              margin: '0.15em 0',
-            }}
-          >
-            {t('couple.and')}
-          </div>
-          <div>{t('couple.firstName2')}</div>
-        </div>
-
-        <div
-          className="my-12"
-          style={{ width: 80, height: 1, backgroundColor: 'var(--color-ink-faint)' }}
-          aria-hidden
-        />
-
-        <p
-          className="max-w-md italic"
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--fs-invitation)',
-            lineHeight: 1.4,
-          }}
-        >
-          {t('wedding.invitation')}
-        </p>
-
-        <div className="mt-10">
-          <p style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--fs-body-lg)' }}>
-            {t('wedding.dateLong')}
-          </p>
-          <p
-            className="mt-1"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'var(--fs-body)',
-              color: 'var(--color-ink-soft)',
-            }}
-          >
-            {t('wedding.city')}
-          </p>
-        </div>
-      </section>
-
-      <SectionDivider />
-      <ScratchReveal />
-
-      <SectionDivider />
-      <Countdown />
+      <Hero />
 
       <SectionDivider />
       <Story />
 
-      <SectionDivider />
-      <Schedule />
+      <DirectAddress />
 
-      <SectionDivider />
-      <Venues />
-
-      <SectionDivider />
-      <Gifts />
-
-      <SectionDivider />
       <Rsvp />
 
       <SectionDivider />
+      <LeJour />
 
-      <footer className="py-12 text-center">
-        <p
-          className="uppercase"
+      <SectionDivider />
+      <Infos />
+
+      <SectionDivider />
+      <Cadeaux />
+
+      <Farewell />
+    </>
+  )
+}
+
+// The hero. Names in a single horizontal pairing on desktop for intimacy;
+// stacked on mobile for weight. Subline in first-person plural ("on s'est dit
+// oui à Paris"), not third-person faire-part convention.
+function Hero() {
+  const { t } = useTranslation()
+
+  return (
+    <section className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 py-20 text-center">
+      <p
+        className="mb-16"
+        style={{
+          fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
+          fontSize: 'var(--fs-invocation)',
+          color: 'var(--color-ink-soft)',
+        }}
+      >
+        {t('invocation')}
+      </p>
+
+      <p
+        className="mb-6 uppercase"
+        style={{
+          fontSize: 'var(--fs-meta)',
+          letterSpacing: 'var(--tracking-meta)',
+          color: 'var(--color-ink-soft)',
+        }}
+      >
+        {t('hero.eyebrow')}
+      </p>
+
+      {/* Names: horizontal on md+, stacked on mobile. */}
+      <h1
+        className="flex flex-col items-center md:flex-row md:items-baseline md:justify-center md:gap-8"
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'var(--fs-display)',
+          lineHeight: 'var(--lh-display)',
+          letterSpacing: 'var(--tracking-display)',
+          fontWeight: 600,
+          color: 'var(--color-ink)',
+        }}
+      >
+        <span>{t('couple.firstName1')}</span>
+        <span
+          className="my-1 md:my-0"
           style={{
-            fontSize: 'var(--fs-meta)',
-            letterSpacing: 'var(--tracking-meta)',
+            fontStyle: 'italic',
+            color: 'var(--color-blush)',
+            fontWeight: 400,
+            fontSize: '0.45em',
+            lineHeight: 1.2,
+          }}
+        >
+          {t('couple.and')}
+        </span>
+        <span>{t('couple.firstName2')}</span>
+      </h1>
+
+      <div
+        className="my-10"
+        style={{ width: 60, height: 1, backgroundColor: 'var(--color-ink-faint)' }}
+        aria-hidden
+      />
+
+      <p
+        className="max-w-lg italic"
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'var(--fs-invitation)',
+          lineHeight: 1.5,
+          color: 'var(--color-ink)',
+        }}
+      >
+        {t('hero.subline')}
+      </p>
+
+      <div className="mt-10">
+        <p style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--fs-body-lg)' }}>
+          {t('hero.dateLong')}
+        </p>
+        <p
+          className="mt-1"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--fs-body)',
             color: 'var(--color-ink-soft)',
           }}
         >
-          14.11.2026
+          {t('hero.city')}
         </p>
-      </footer>
-    </>
+      </div>
+
+      {/* Scroll cue — discreet chevron, auto-fading. */}
+      <div
+        className="mt-20"
+        style={{
+          color: 'var(--color-ink-soft)',
+          animation: 'hero-scroll-cue 2.6s ease-in-out infinite',
+        }}
+        aria-hidden
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M6 9 L12 15 L18 9" />
+        </svg>
+      </div>
+
+      <style>{`
+        @keyframes hero-scroll-cue {
+          0%, 100% { opacity: 0.3; transform: translateY(0); }
+          50%      { opacity: 0.7; transform: translateY(4px); }
+        }
+      `}</style>
+    </section>
   )
 }

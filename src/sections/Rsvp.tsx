@@ -1,52 +1,149 @@
-// "Votre réponse" — RSVP form.
-// Simple variant: one shared guest counter (adults + children +/- steppers),
-// one shared name + dietary + optional message.
-// Plus a gold-filled submit button with a paper-plane icon.
-// Phase 2f: styling + local state. Phase 3 wires submission to Supabase.
-import { useState } from 'react'
+// "Votre réponse" — the RSVP form. The highest-value section on the site.
+//
+// Flow:
+//   1. Subtitle shows live days-until-wedding + deadline in one line.
+//   2. Name + email.
+//   3. Attending: yes / pas cette fois — two big buttons.
+//   4. If yes → guest counters (adults + children) + dietary.
+//   5. Free-text message (optional, always visible).
+//   6. Submit → Supabase → warm confirmation screen.
+//
+// Errors are surfaced inline — no silent failures.
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { z } from 'zod'
 import { SectionTitle } from '@/components/SectionTitle'
 import { PaperPlaneIcon } from '@/components/Icons'
+import { supabase } from '@/lib/supabase'
 
 type Attending = 'yes' | 'no' | null
+
+// Schema mirrors the Supabase table defined in supabase/migrations/0001_init.sql.
+const rsvpSchema = z.object({
+  guest_name: z.string().min(1),
+  email: z.string().email().optional().or(z.literal('')),
+  attending: z.boolean(),
+  plus_one_name: z.string().optional(),
+  dietary_notes: z.string().optional(),
+  song_request: z.string().optional(),
+  message: z.string().optional(),
+  language: z.literal('fr'),
+})
+
+type RsvpInput = z.infer<typeof rsvpSchema>
+
+// Target: 14 November 2026, 16:00 Casablanca (UTC+1) — matches Countdown's TARGET.
+const TARGET_MS = new Date('2026-11-14T15:00:00Z').getTime()
+
+function daysUntilWedding(nowMs: number): number {
+  return Math.max(0, Math.ceil((TARGET_MS - nowMs) / (1000 * 60 * 60 * 24)))
+}
+
+type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 export function Rsvp() {
   const { t } = useTranslation()
   const [attending, setAttending] = useState<Attending>(null)
   const [adults, setAdults] = useState(1)
   const [children, setChildren] = useState(0)
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+  const [days, setDays] = useState<number>(() => daysUntilWedding(Date.now()))
 
-  function handleSubmit(e: FormEvent) {
+  useEffect(() => {
+    // Refresh the day-count once an hour — nobody needs second-level precision.
+    const id = setInterval(() => setDays(daysUntilWedding(Date.now())), 60 * 60 * 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    // Phase 3 wires this to Supabase. For now, local confirmation.
-    setSubmitted(true)
+    if (attending === null) return
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    const payload: RsvpInput = {
+      guest_name: String(data.get('guest_name') ?? '').trim(),
+      email: String(data.get('email') ?? '').trim(),
+      attending: attending === 'yes',
+      dietary_notes:
+        attending === 'yes'
+          ? String(data.get('dietary_notes') ?? '').trim() || undefined
+          : undefined,
+      message: String(data.get('message') ?? '').trim() || undefined,
+      language: 'fr',
+    }
+
+    const parsed = rsvpSchema.safeParse(payload)
+    if (!parsed.success) {
+      setStatus('error')
+      return
+    }
+
+    setStatus('submitting')
+
+    // plus_one_name is reused here to encode adults/children counts as a simple
+    // "3 adultes · 1 enfant" string — keeps the DB shape stable without a
+    // migration, and the admin page can parse it if needed.
+    const guestCount =
+      attending === 'yes'
+        ? `${adults} adulte${adults > 1 ? 's' : ''}${
+            children > 0 ? ` · ${children} enfant${children > 1 ? 's' : ''}` : ''
+          }`
+        : undefined
+
+    try {
+      const { error } = await supabase.from('rsvps').insert({
+        ...parsed.data,
+        plus_one_name: guestCount,
+      })
+      if (error) throw error
+      setStatus('success')
+    } catch (err: unknown) {
+      // Log to console in dev — swap for a real logger in production.
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.error('RSVP insert failed', err)
+      }
+      setStatus('error')
+    }
   }
 
-  if (submitted) {
+  if (status === 'success') {
+    const yes = attending === 'yes'
     return (
-      <section className="mx-auto max-w-xl px-6 py-16">
+      <section id="rsvp" className="mx-auto max-w-xl px-6 py-16">
         <SectionTitle>{t('rsvp.title')}</SectionTitle>
-        <p
-          className="mt-12 text-center italic"
-          style={{ fontSize: 'var(--fs-invitation)' }}
-        >
-          {t('rsvp.thanks')}
-        </p>
+        <div className="mt-12 text-center">
+          <p
+            className="italic"
+            style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--fs-invitation)' }}
+          >
+            {yes ? t('rsvp.thanks') : t('rsvp.thanksDecline')}
+          </p>
+          <p
+            className="mt-3 italic"
+            style={{ color: 'var(--color-ink-soft)', fontSize: 'var(--fs-body)' }}
+          >
+            {yes ? t('rsvp.thanksSub') : t('rsvp.thanksDeclineSub')}
+          </p>
+        </div>
       </section>
     )
   }
 
   return (
-    <section className="mx-auto max-w-xl px-6 py-16">
+    <section id="rsvp" className="mx-auto max-w-xl px-6 py-16">
       <SectionTitle>{t('rsvp.title')}</SectionTitle>
 
       <p
         className="mt-6 text-center italic"
         style={{ color: 'var(--color-ink-soft)', fontSize: 'var(--fs-body)' }}
       >
-        {t('rsvp.subtitle')}
+        {days > 0
+          ? t('rsvp.subtitle', { days })
+          : t('rsvp.subtitleNoCount')}
       </p>
 
       <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
@@ -59,7 +156,7 @@ export function Rsvp() {
           <>
             <GuestCounters
               adults={adults}
-              children={children}
+              childCount={children}
               onAdults={setAdults}
               onChildren={setChildren}
             />
@@ -67,25 +164,44 @@ export function Rsvp() {
           </>
         )}
 
-        <Field label={t('rsvp.fields.message')} name="message" multiline />
+        <Field
+          label={t('rsvp.fields.message')}
+          name="message"
+          multiline
+          placeholder={t('rsvp.fields.messagePlaceholder')}
+        />
 
         <button
           type="submit"
           className="mt-4 inline-flex items-center justify-center gap-3 self-center px-10 py-4 transition"
           style={{
-            backgroundColor: attending === null ? 'var(--color-ink-faint)' : 'var(--color-gold)',
+            backgroundColor:
+              attending === null || status === 'submitting'
+                ? 'var(--color-ink-faint)'
+                : 'var(--color-gold)',
             color: 'var(--color-paper)',
             fontFamily: 'var(--font-serif)',
             fontSize: 'var(--fs-body)',
             letterSpacing: '0.05em',
             border: 'none',
-            cursor: attending === null ? 'not-allowed' : 'pointer',
+            cursor:
+              attending === null || status === 'submitting' ? 'not-allowed' : 'pointer',
           }}
-          disabled={attending === null}
+          disabled={attending === null || status === 'submitting'}
         >
           <PaperPlaneIcon size={18} color="var(--color-paper)" />
-          {t('rsvp.submit')}
+          {status === 'submitting' ? t('rsvp.sending') : t('rsvp.submit')}
         </button>
+
+        {status === 'error' && (
+          <p
+            className="text-center"
+            style={{ color: 'var(--color-ink)', fontSize: 'var(--fs-body)' }}
+            role="alert"
+          >
+            {t('rsvp.error')}
+          </p>
+        )}
       </form>
     </section>
   )
@@ -97,9 +213,17 @@ interface FieldProps {
   type?: string
   required?: boolean
   multiline?: boolean
+  placeholder?: string
 }
 
-function Field({ label, name, type = 'text', required, multiline }: FieldProps) {
+function Field({
+  label,
+  name,
+  type = 'text',
+  required,
+  multiline,
+  placeholder,
+}: FieldProps) {
   const inputStyle: React.CSSProperties = {
     fontFamily: 'var(--font-serif)',
     fontSize: 'var(--fs-body)',
@@ -126,9 +250,21 @@ function Field({ label, name, type = 'text', required, multiline }: FieldProps) 
         {required ? ' *' : ''}
       </span>
       {multiline ? (
-        <textarea name={name} rows={3} required={required} style={inputStyle} />
+        <textarea
+          name={name}
+          rows={3}
+          required={required}
+          placeholder={placeholder}
+          style={inputStyle}
+        />
       ) : (
-        <input type={type} name={name} required={required} style={inputStyle} />
+        <input
+          type={type}
+          name={name}
+          required={required}
+          placeholder={placeholder}
+          style={inputStyle}
+        />
       )}
     </label>
   )
@@ -181,12 +317,12 @@ function AttendingChoice({ value, onChange }: AttendingChoiceProps) {
 
 interface GuestCountersProps {
   adults: number
-  children: number
+  childCount: number
   onAdults: (n: number) => void
   onChildren: (n: number) => void
 }
 
-function GuestCounters({ adults, children, onAdults, onChildren }: GuestCountersProps) {
+function GuestCounters({ adults, childCount, onAdults, onChildren }: GuestCountersProps) {
   const { t } = useTranslation()
   return (
     <fieldset className="flex flex-col gap-5">
@@ -210,7 +346,7 @@ function GuestCounters({ adults, children, onAdults, onChildren }: GuestCounters
       />
       <Stepper
         label={t('rsvp.fields.children')}
-        value={children}
+        value={childCount}
         onChange={onChildren}
         min={0}
       />
@@ -263,7 +399,7 @@ function Stepper({ label, value, onChange, min, hint }: StepperProps) {
       <div className="flex items-center gap-2">
         <button
           type="button"
-          aria-label={`Decrease ${label}`}
+          aria-label={`Diminuer ${label}`}
           onClick={() => canDecrement && onChange(value - 1)}
           style={buttonStyle(!canDecrement)}
           disabled={!canDecrement}
@@ -283,7 +419,7 @@ function Stepper({ label, value, onChange, min, hint }: StepperProps) {
         </div>
         <button
           type="button"
-          aria-label={`Increase ${label}`}
+          aria-label={`Augmenter ${label}`}
           onClick={() => onChange(value + 1)}
           style={buttonStyle(false)}
         >

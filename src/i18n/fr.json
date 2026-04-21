@@ -9,65 +9,98 @@
     "firstName2": "Hamza",
     "and": "&"
   },
-  "wedding": {
+  "hero": {
+    "eyebrow": "après Paris",
+    "subline": "On s'est dit oui à Paris. On aimerait vous avoir à Casablanca.",
     "dateLong": "14 novembre 2026",
-    "city": "Casablanca",
-    "afterParis": "après Paris",
-    "invitation": "ont la joie de vous convier à célébrer leur mariage"
+    "city": "Casablanca"
   },
-  "language": {
-    "switchTo": "العربية"
-  },
-  "envelope": {
-    "cta": "Cliquez sur le sceau pour ouvrir"
-  },
-  "reveal": {
-    "title": "La date",
-    "hint": "Grattez pour découvrir",
-    "tagline": "On se marie !"
-  },
-  "countdown": {
-    "title": "Compte à rebours",
-    "subtitle": "Jusqu'au 14 novembre 2026",
-    "days": "Jours",
-    "hours": "Heures",
-    "minutes": "Minutes"
+  "bridge": {
+    "parisLabel": "Paris",
+    "parisDate": "11 avril 2026",
+    "casablancaLabel": "Casablanca",
+    "casablancaDate": "14 novembre 2026"
   },
   "story": {
     "title": "Notre histoire",
-    "p1": "Hamza a pris le train jusqu'à Reims le 22 juin. Elle n'a pas arrêté de sourire. On était célibataires depuis longtemps tous les deux, on attendait quelqu'un qui en valait vraiment la peine. Ce jour-là, on a arrêté d'attendre. Pas un seul jour de doute depuis.",
-    "p2": "Mariame est solaire, Hamza plus discret. Elle déborde d'énergie, il est direct. On se complète, et surtout, on se tire vers le haut.",
-    "p3": "On s'est dit oui le 11 avril à la Mairie du 11e arrondissement. Le 14 novembre à Casablanca, on se retrouve — et on célèbre avec celles et ceux qui n'ont pas pu faire le voyage jusqu'à Paris."
+    "p1": "Hamza a pris le train pour Reims le 22 juin. Elle n'a pas arrêté de sourire. On a tous les deux attendu longtemps ; ça en valait la peine.",
+    "p2": "Mariame parle pendant les films, Hamza la corrompt pour qu'elle se taise. Il vend du rêve en marketing, elle vérifie qu'on peut se le payer. On se complète, on se tire vers le haut.",
+    "p3": "292 jours. Pas un seul doute."
   },
-  "schedule": {
-    "title": "Le déroulé",
-    "placeholder": "Horaires à confirmer — une journée complète de célébration vous attend.",
+  "address": {
+    "line": "Si vous êtes sur cette page, c'est qu'on tient à vous. Venez."
+  },
+  "rsvp": {
+    "title": "Votre réponse",
+    "subtitle": "Plus que {{days}} jours. Répondez avant le 1er août 2026.",
+    "subtitleNoCount": "Répondez avant le 1er août 2026.",
+    "fields": {
+      "name": "Votre nom",
+      "email": "Email",
+      "guests": "Combien serez-vous ?",
+      "guestsHint": "Vous compris",
+      "adults": "Adultes",
+      "children": "Enfants",
+      "dietary": "Allergies ou préférences",
+      "message": "Un mot pour les mariés",
+      "messagePlaceholder": "Un mot, une promesse, une blague…"
+    },
+    "attending": {
+      "question": "Serez-vous des nôtres ?",
+      "yes": "Avec joie",
+      "no": "Pas cette fois"
+    },
+    "submit": "Envoyer",
+    "sending": "Envoi…",
+    "thanks": "Merci. On a bien reçu votre réponse.",
+    "thanksSub": "On se voit le 14 novembre.",
+    "thanksDecline": "Merci de nous avoir prévenus.",
+    "thanksDeclineSub": "On pensera à vous le jour J.",
+    "error": "Un souci à l'envoi. Réessayez, ou écrivez-nous directement."
+  },
+  "leJour": {
+    "title": "Le jour",
+    "body": "Cérémonie en début d'après-midi à Casablanca, puis cocktail, dîner, et on danse tard. Prévoyez de bonnes chaussures.",
+    "venueNote": "Le lieu se confirme avant l'été. On vous envoie les détails (et une carte) dès que c'est signé.",
+    "timelineNote": "Horaires précis début octobre."
+  },
+  "infos": {
+    "title": "Infos pratiques",
     "items": [
-      { "time": "16h00", "label": "Cérémonie", "subtitle": "On se dit oui", "icon": "rings" },
-      { "time": "18h00", "label": "Cocktail", "subtitle": "Bulles et bouchées", "icon": "cocktail" },
-      { "time": "20h00", "label": "Dîner", "subtitle": "À table", "icon": "plate" },
-      { "time": "22h30", "label": "Première danse", "subtitle": "On ouvre le bal", "icon": "heart" },
-      { "time": "23h00", "label": "Soirée", "subtitle": "Jusqu'au bout de la nuit", "icon": "music" }
+      {
+        "q": "Dress code",
+        "a": "Élégant. Costume, robe de cocktail, caftan — faites-vous plaisir, c'est Casablanca en novembre."
+      },
+      {
+        "q": "Depuis l'aéroport",
+        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du centre. Taxi officiel : ~250 MAD. On partagera une liste d'hôtels proches du lieu dès qu'il est confirmé."
+      },
+      {
+        "q": "Les enfants",
+        "a": "Oui, bienvenus. Indiquez-les dans le formulaire pour qu'on prévoie."
+      },
+      {
+        "q": "Une question ?",
+        "a": "Écrivez-nous à hello@mariameandhamza.com — on répond vite."
+      }
     ]
   },
-  "venues": {
-    "title": "Où",
-    "toBeConfirmed": "Lieu à confirmer",
-    "ceremony": { "role": "Cérémonie", "city": "Casablanca" },
-    "reception": { "role": "Réception", "city": "Casablanca" }
-  },
-  "gifts": {
+  "cadeaux": {
     "title": "Cadeaux",
-    "intro": "Votre présence est notre plus beau cadeau. Si vous souhaitez tout de même nous faire plaisir, voici nos coordonnées bancaires :",
+    "intro": "Votre présence est notre plus beau cadeau. Pour celles et ceux qui veulent marquer le coup, nos coordonnées bancaires sont ci-dessous.",
+    "toggleOpen": "Voir les coordonnées",
+    "toggleClose": "Masquer",
     "accounts": [
       {
-        "bank": "Banque — Hamza Sbaa",
+        "label": "En France",
+        "holder": "Hamza Sbaa",
         "iban": "FR00 0000 0000 0000 0000 0000 000",
         "bic": "XXXXXXXX"
       },
       {
-        "bank": "Banque — Mariame",
-        "iban": "FR00 0000 0000 0000 0000 0000 000",
+        "label": "Au Maroc",
+        "holder": "Mariame",
+        "iban": "MA00 0000 0000 0000 0000 0000 000",
         "bic": "XXXXXXXX"
       }
     ],
@@ -76,25 +109,9 @@
     "copy": "Copier",
     "copied": "Copié"
   },
-  "rsvp": {
-    "title": "Votre réponse",
-    "subtitle": "Merci de confirmer avant le 15 septembre 2026.",
-    "fields": {
-      "name": "Votre nom",
-      "email": "Email",
-      "guests": "Combien serez-vous ?",
-      "guestsHint": "Vous compris",
-      "adults": "Adultes",
-      "children": "Enfants",
-      "dietary": "Allergies ou préférences alimentaires",
-      "message": "Un mot pour les mariés (facultatif)"
-    },
-    "attending": {
-      "question": "Serez-vous des nôtres ?",
-      "yes": "Avec joie",
-      "no": "Avec regret"
-    },
-    "submit": "Envoyer la réponse",
-    "thanks": "Merci, nous avons bien reçu votre réponse."
+  "farewell": {
+    "line": "À très vite.",
+    "signoff": "— Mariame & Hamza",
+    "contact": "Une question ? hello@mariameandhamza.com"
   }
 }
