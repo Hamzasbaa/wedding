@@ -6,6 +6,7 @@
 // the casual scroller and deep for the planner.
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
+import { Reveal } from '@/components/Reveal'
 
 interface FaqItem {
   q: string
@@ -21,8 +22,10 @@ export function Infos() {
       <SectionTitle>{t('infos.title')}</SectionTitle>
 
       <div className="mt-12 flex flex-col">
-        {items.map((item) => (
-          <FaqRow key={item.q} question={item.q} answer={item.a} />
+        {items.map((item, i) => (
+          <Reveal key={item.q} delay={i * 100}>
+            <FaqRow question={item.q} answer={item.a} />
+          </Reveal>
         ))}
       </div>
     </section>

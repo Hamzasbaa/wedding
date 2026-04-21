@@ -8,6 +8,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
+import { Reveal } from '@/components/Reveal'
 
 interface Account {
   label: string
@@ -25,6 +26,7 @@ export function Cadeaux() {
     <section className="mx-auto max-w-2xl px-6 py-16">
       <SectionTitle>{t('cadeaux.title')}</SectionTitle>
 
+      <Reveal delay={100}>
       <p
         className="mx-auto mt-6 max-w-xl text-center italic"
         style={{
@@ -36,8 +38,9 @@ export function Cadeaux() {
       >
         {t('cadeaux.intro')}
       </p>
+      </Reveal>
 
-      <div className="mt-10 flex justify-center">
+      <Reveal delay={250} className="mt-10 flex justify-center">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
@@ -55,7 +58,7 @@ export function Cadeaux() {
         >
           {open ? t('cadeaux.toggleClose') : t('cadeaux.toggleOpen')}
         </button>
-      </div>
+      </Reveal>
 
       {open && (
         <div className="mt-8 flex flex-col gap-6">

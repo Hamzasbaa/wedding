@@ -14,6 +14,7 @@
 //      inviting you to."
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
+import { Reveal } from '@/components/Reveal'
 
 export function Story() {
   const { t } = useTranslation()
@@ -24,39 +25,44 @@ export function Story() {
 
       <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-[2fr_3fr] md:items-start md:gap-16">
         {/* Mairie portrait — the civil wedding */}
-        <div
+        <Reveal
           className="overflow-hidden"
-          style={{
-            aspectRatio: '3 / 4',
-            backgroundColor: 'var(--color-blush)',
-          }}
+          /* Aspect ratio + backing colour kept on inner div since
+             Reveal's wrapper already inherits size via grid cell */
         >
-          <img
-            src="/photo-mairie.jpg"
-            alt="Mariame et Hamza, Mairie du 11e arrondissement, 11 avril 2026"
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-        </div>
-
-        {/* Prose */}
-        <div
-          className="space-y-6"
-          style={{ fontSize: 'var(--fs-body-lg)', lineHeight: 1.7 }}
-        >
-          <p>{t('story.p1')}</p>
-          <p>{t('story.p2')}</p>
-          <p>{t('story.p3')}</p>
-          <p
-            className="italic"
+          <div
+            className="overflow-hidden"
             style={{
-              fontFamily: 'var(--font-serif)',
-              color: 'var(--color-ink)',
-              fontSize: 'var(--fs-invitation)',
+              aspectRatio: '3 / 4',
+              backgroundColor: 'var(--color-blush)',
             }}
           >
-            {t('story.p4')}
-          </p>
+            <img
+              src="/photo-mairie.jpg"
+              alt="Mariame et Hamza, Mairie du 11e arrondissement, 11 avril 2026"
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </Reveal>
+
+        {/* Prose — each paragraph reveals in sequence */}
+        <div className="space-y-6" style={{ fontSize: 'var(--fs-body-lg)', lineHeight: 1.7 }}>
+          <Reveal delay={80}><p>{t('story.p1')}</p></Reveal>
+          <Reveal delay={180}><p>{t('story.p2')}</p></Reveal>
+          <Reveal delay={280}><p>{t('story.p3')}</p></Reveal>
+          <Reveal delay={380}>
+            <p
+              className="italic"
+              style={{
+                fontFamily: 'var(--font-serif)',
+                color: 'var(--color-ink)',
+                fontSize: 'var(--fs-invitation)',
+              }}
+            >
+              {t('story.p4')}
+            </p>
+          </Reveal>
         </div>
       </div>
 
@@ -116,13 +122,19 @@ function PhotoBridge() {
     <div className="mx-auto mt-20 max-w-3xl px-2 sm:mt-24">
       {/* Mobile: stacked vertically, each point has a vertical dashed line
           below it leading into the next. Desktop: horizontal row with
-          dashed segments filling the space between points. */}
+          dashed segments filling the space between points.
+          Each point + connector reveals in sequence so the timeline
+          literally writes itself as the guest arrives. */}
       <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between sm:gap-4">
-        <BridgePortrait point={BRIDGE_POINTS[0]} data={points[0]} />
-        <DashedSegment />
-        <BridgePortrait point={BRIDGE_POINTS[1]} data={points[1]} />
-        <DashedSegment />
-        <BridgePortrait point={BRIDGE_POINTS[2]} data={points[2]} />
+        <Reveal><BridgePortrait point={BRIDGE_POINTS[0]} data={points[0]} /></Reveal>
+        <Reveal delay={300} className="flex w-full sm:flex-1 sm:items-center sm:justify-center">
+          <DashedSegment />
+        </Reveal>
+        <Reveal delay={500}><BridgePortrait point={BRIDGE_POINTS[1]} data={points[1]} /></Reveal>
+        <Reveal delay={800} className="flex w-full sm:flex-1 sm:items-center sm:justify-center">
+          <DashedSegment />
+        </Reveal>
+        <Reveal delay={1000}><BridgePortrait point={BRIDGE_POINTS[2]} data={points[2]} /></Reveal>
       </div>
     </div>
   )

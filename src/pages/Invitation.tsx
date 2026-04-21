@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
 import { DirectAddress } from '@/components/DirectAddress'
 import { FallingPetals } from '@/components/FallingPetals'
+import { PaperGrain } from '@/components/PaperGrain'
 import { Story } from '@/sections/Story'
 import { Rsvp } from '@/sections/Rsvp'
 import { LeJour } from '@/sections/LeJour'
@@ -30,6 +31,10 @@ import { Farewell } from '@/sections/Farewell'
 export function Invitation() {
   return (
     <>
+      {/* Paper grain — one fixed noise layer at ~5% opacity that makes
+          the flat cream read as paper. Sits behind everything. */}
+      <PaperGrain />
+
       {/* Ambient blush + gold petals drifting across the whole page. Sits
           behind content (z-0); every section uses the default stacking so
           it appears above the petals. */}
@@ -69,7 +74,7 @@ function Hero() {
   return (
     <section className="mx-auto flex min-h-[85vh] max-w-4xl flex-col items-center justify-center px-6 py-12 text-center md:min-h-screen md:py-20">
       <p
-        className="mb-10 md:mb-14"
+        className="hero-anim-invoc mb-10 md:mb-14"
         style={{
           fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
           fontSize: 'var(--fs-invocation)',
@@ -79,7 +84,10 @@ function Hero() {
         {t('invocation')}
       </p>
 
-      {/* Names: horizontal on md+, stacked on mobile. */}
+      {/* Names: horizontal on md+, stacked on mobile. Each piece animates
+          in on page load with its own delay — left name slides in from
+          the left, ampersand scales in, right name slides in from the
+          right. Feels like an invitation being signed. */}
       <h1
         className="flex flex-col items-center md:flex-row md:items-baseline md:justify-center md:gap-8"
         style={{
@@ -91,13 +99,14 @@ function Hero() {
           color: 'var(--color-ink)',
         }}
       >
-        <span>{t('couple.firstName1')}</span>
+        <span className="hero-anim-left">{t('couple.firstName1')}</span>
         {/* Ampersand in Parisienne — consistent with "script = tender
             accents." Reserves this one flourish for the couple, echoing
             the section titles. */}
         <span
-          className="my-1 md:my-0"
+          className="hero-anim-amp my-1 md:my-0"
           style={{
+            display: 'inline-block',
             fontFamily: 'var(--font-script)',
             color: 'var(--color-blush)',
             fontWeight: 400,
@@ -108,17 +117,17 @@ function Hero() {
         >
           {t('couple.and')}
         </span>
-        <span>{t('couple.firstName2')}</span>
+        <span className="hero-anim-right">{t('couple.firstName2')}</span>
       </h1>
 
       <div
-        className="my-8 md:my-10"
+        className="hero-anim-divider my-8 md:my-10"
         style={{ width: 60, height: 1, backgroundColor: 'var(--color-ink-faint)' }}
         aria-hidden
       />
 
       <p
-        className="max-w-lg italic"
+        className="hero-anim-subline max-w-lg italic"
         style={{
           fontFamily: 'var(--font-serif)',
           fontSize: 'var(--fs-invitation)',
@@ -129,7 +138,7 @@ function Hero() {
         {t('hero.subline')}
       </p>
 
-      <div className="mt-8 md:mt-10">
+      <div className="hero-anim-where mt-8 md:mt-10">
         <p style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--fs-body-lg)' }}>
           {t('hero.dateLong')}
         </p>
@@ -150,7 +159,7 @@ function Hero() {
         <div
           lang="ar"
           dir="rtl"
-          className="mt-8"
+          className="hero-anim-arabic mt-8"
           style={{
             fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
             color: 'var(--color-ink-soft)',
@@ -169,27 +178,30 @@ function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue — discreet chevron, auto-fading. */}
-      <div
-        className="mt-10 md:mt-16"
-        style={{
-          color: 'var(--color-ink-soft)',
-          animation: 'hero-scroll-cue 2.6s ease-in-out infinite',
-        }}
-        aria-hidden
-      >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      {/* Scroll cue — outer div handles the fade-in on page load;
+          inner div handles the infinite gentle pulse. Two layers so
+          the entrance animation (via className) and the ambient pulse
+          (via inline style) don't conflict on the `animation` property. */}
+      <div className="hero-anim-chevron mt-10 md:mt-16" aria-hidden>
+        <div
+          style={{
+            color: 'var(--color-ink-soft)',
+            animation: 'hero-scroll-cue 2.6s ease-in-out 2800ms infinite',
+          }}
         >
-          <path d="M6 9 L12 15 L18 9" />
-        </svg>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 9 L12 15 L18 9" />
+          </svg>
+        </div>
       </div>
 
       <style>{`

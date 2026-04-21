@@ -9,7 +9,7 @@
 //   6. Submit → Supabase → warm confirmation screen.
 //
 // Errors are surfaced inline — no silent failures.
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
@@ -240,12 +240,62 @@ export function Rsvp() {
 // Typography is one family (Cormorant Garamond), one primary colour (ink);
 // the only gold is a 60px hairline mark above the label. Reads as editorial,
 // not dashboard.
+//
+// The day count ticks up from 0 to the real value when the badge scrolls
+// into view — a small delight that reinforces "a clock is ticking."
 interface CountdownBadgeProps {
   days: number
 }
 
+// Ticks an integer from 0 up to `target` over durationMs when the
+// returned ref's element enters the viewport. Returns both the current
+// value and the ref to attach to the DOM node the hook observes.
+function useCountUp(
+  target: number,
+  durationMs = 1500,
+): [number, React.RefObject<HTMLSpanElement | null>] {
+  const ref = useRef<HTMLSpanElement | null>(null)
+  const [value, setValue] = useState(0)
+
+  useEffect(() => {
+    if (target <= 0) {
+      setValue(0)
+      return
+    }
+    const node = ref.current
+    if (!node) return
+
+    let frame = 0
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        observer.disconnect()
+        const start = performance.now()
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / durationMs)
+          // Cubic ease-out — fast start, gentle settle on the final number.
+          const eased = 1 - Math.pow(1 - t, 3)
+          setValue(Math.round(eased * target))
+          if (t < 1) frame = requestAnimationFrame(tick)
+        }
+        frame = requestAnimationFrame(tick)
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(frame)
+    }
+  }, [target, durationMs])
+
+  return [value, ref]
+}
+
 function CountdownBadge({ days }: CountdownBadgeProps) {
   const { t } = useTranslation()
+  const [animatedDays, countRef] = useCountUp(days, 1500)
 
   return (
     <div className="mt-10 flex flex-col items-center text-center">
@@ -288,7 +338,7 @@ function CountdownBadge({ days }: CountdownBadgeProps) {
         {t('rsvp.deadlineDate')}
       </p>
 
-      {/* Day count — quiet support line, only when the deadline is future. */}
+      {/* Day count — quiet support line, ticks up from 0 on first view. */}
       {days > 0 && (
         <p
           className="mt-4 italic"
@@ -298,7 +348,9 @@ function CountdownBadge({ days }: CountdownBadgeProps) {
             color: 'var(--color-ink-soft)',
           }}
         >
-          {t('rsvp.deadlineRemainder', { days })}
+          {t('rsvp.deadlinePrefix')}{' '}
+          <span ref={countRef}>{animatedDays}</span>{' '}
+          {t('rsvp.deadlineSuffix')}
         </p>
       )}
     </div>

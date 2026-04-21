@@ -13,6 +13,7 @@
 // major chunk gets a Parisienne gold script heading.
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
+import { Reveal } from '@/components/Reveal'
 
 interface TimelineItem {
   time: string
@@ -28,17 +29,19 @@ export function LeJour() {
     <section className="mx-auto max-w-4xl px-6 py-16">
       <SectionTitle>{t('leJour.title')}</SectionTitle>
 
-      <p
-        className="mx-auto mt-10 max-w-2xl text-center"
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: 'var(--fs-invitation)',
-          lineHeight: 1.6,
-          color: 'var(--color-ink)',
-        }}
-      >
-        {t('leJour.intro')}
-      </p>
+      <Reveal delay={120}>
+        <p
+          className="mx-auto mt-10 max-w-2xl text-center"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--fs-invitation)',
+            lineHeight: 1.6,
+            color: 'var(--color-ink)',
+          }}
+        >
+          {t('leJour.intro')}
+        </p>
+      </Reveal>
 
       <Timeline items={items} />
     </section>
@@ -53,10 +56,11 @@ function Timeline({ items }: TimelineProps) {
   return (
     <ol className="mt-16 flex flex-col gap-8 md:gap-10" aria-label="Déroulé de la soirée">
       {items.map((item, i) => (
-        <li
-          key={item.time}
-          className="grid grid-cols-[auto_1fr] items-baseline gap-6 sm:gap-9"
-        >
+        <li key={item.time}>
+          <Reveal
+            delay={i * 120}
+            className="grid grid-cols-[auto_1fr] items-baseline gap-6 sm:gap-9"
+          >
           {/* Time — the anchor. Larger display size + gold so each row's
               time feels like a chapter marker, not a tag. */}
           <div
@@ -103,6 +107,7 @@ function Timeline({ items }: TimelineProps) {
               {item.detail}
             </div>
           </div>
+          </Reveal>
         </li>
       ))}
     </ol>

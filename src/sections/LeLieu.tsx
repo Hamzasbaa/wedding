@@ -14,6 +14,7 @@
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
 import { PinIcon } from '@/components/Icons'
+import { Reveal } from '@/components/Reveal'
 
 const VENUE_LAT = 33.5603
 const VENUE_LNG = -7.6104
@@ -38,8 +39,9 @@ export function LeLieu() {
     <section className="mx-auto max-w-4xl px-6 py-16">
       <SectionTitle>{t('leLieu.title')}</SectionTitle>
 
+      <Reveal delay={120} className="mt-12">
       <article
-        className="mt-12 overflow-hidden"
+        className="overflow-hidden"
         style={{
           border: '1px solid var(--color-ink-faint)',
           backgroundColor: 'var(--color-paper)',
@@ -117,6 +119,7 @@ export function LeLieu() {
           </div>
         </div>
       </article>
+      </Reveal>
     </section>
   )
 }

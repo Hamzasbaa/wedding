@@ -84,6 +84,82 @@ h3 {
   }
 }
 
+/* -------------------------------------------------------------------
+ * Reveal — scroll-triggered fade + slide-up. Applied via the <Reveal>
+ * component (src/components/Reveal.tsx). 700ms with a soft easing so
+ * each section feels arrived-at, not popping.
+ * ------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section titles settle in more gently — bigger translateY, slower timing.
+   Applied by SectionTitle via its own observer. */
+.section-title-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.section-title-reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .section-title-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------
+ * Hero — name-assembly animation on page load.
+ * Each element uses `animation: ... both` so the final state sticks
+ * and the initial invisible state is honored before the delay fires.
+ * ------------------------------------------------------------------- */
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-fade-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes hero-fade-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes hero-scale-in {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.hero-anim-invoc   { animation: hero-fade-up   700ms ease-out   100ms both; }
+.hero-anim-left    { animation: hero-fade-left 800ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both; }
+.hero-anim-amp     { animation: hero-scale-in  600ms cubic-bezier(0.34, 1.56, 0.64, 1) 750ms both; }
+.hero-anim-right   { animation: hero-fade-right 800ms cubic-bezier(0.16, 1, 0.3, 1) 1000ms both; }
+.hero-anim-divider { animation: hero-fade-up   600ms ease-out   1400ms both; }
+.hero-anim-subline { animation: hero-fade-up   600ms ease-out   1600ms both; }
+.hero-anim-where   { animation: hero-fade-up   600ms ease-out   1850ms both; }
+.hero-anim-arabic  { animation: hero-fade-up   600ms ease-out   2100ms both; }
+.hero-anim-chevron { animation: hero-fade-up   600ms ease-out   2400ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  [class^="hero-anim-"] { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+
 /* Focus: visible but soft — gold outline only for keyboard users. Mouse
    and touch interactions don't trigger :focus-visible, so the gold ring
    only shows when it actually helps. */
