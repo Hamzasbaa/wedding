@@ -18,10 +18,11 @@
     "arabicCity": "الدار البيضاء"
   },
   "bridge": {
-    "parisLabel": "Paris",
-    "parisDate": "11 avril 2026",
-    "casablancaLabel": "Casablanca",
-    "casablancaDate": "14 novembre 2026"
+    "points": [
+      { "label": "Casablanca", "date": "8 novembre 2025" },
+      { "label": "Paris", "date": "11 avril 2026" },
+      { "label": "Casablanca", "date": "14 novembre 2026" }
+    ]
   },
   "story": {
     "title": "Notre histoire",

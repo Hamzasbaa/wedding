@@ -3,11 +3,15 @@
 // Structure:
 //   1. Section title
 //   2. Two-column block — civil wedding portrait + prose
-//   3. Paris → Casablanca photo-bridge — two circular portraits linked by
-//      a dashed line. Paris photo sits above a blush ring, Casablanca
-//      above a gold ring. This is the "retrouvailles" visual, now
-//      embodied by the actual photos (was previously a polaroid strip
-//      AND a separate dot-bridge — duplicative; merged into one).
+//   3. Three-point photo-bridge telling the arc:
+//      Casa 8 nov 2025 (henna / engagement)  — blush ring, photo
+//      Paris 11 avril 2026 (civil wedding)    — blush ring, photo
+//      Casa 14 novembre 2026 (the celebration) — gold ring, M&H monogram
+//
+//      The past events wear blush rings and real photos; the future event
+//      wears a gold ring and the couple's monogram — the same mark used
+//      in the favicon and OG card, signalling "this is what we're
+//      inviting you to."
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
 
@@ -61,78 +65,98 @@ export function Story() {
   )
 }
 
-// Paris → Casablanca photo-bridge.
-// Two circular portraits connected by a dashed line. The portraits ARE
-// the retrouvailles: the past (civil wedding, blush ring) linked to the
-// future (celebration, gold ring).
+// The retrouvailles photo-bridge.
+// Three points connected by dashed lines — Casablanca 2025, Paris 2026,
+// Casablanca 2026. Past events (blush rings) link to the future event
+// (gold ring, monogram in place of a photo).
+interface BridgePoint {
+  kind: 'photo' | 'monogram'
+  src?: string
+  alt?: string
+  labelIdx: number // index into t('bridge.points')
+  ringColor: string
+  dateColor: string
+}
+
+const BRIDGE_POINTS: readonly BridgePoint[] = [
+  {
+    kind: 'photo',
+    src: '/photo-henna.jpg',
+    alt: 'Mariame et Hamza, cérémonie traditionnelle marocaine',
+    labelIdx: 0,
+    ringColor: 'var(--color-blush)',
+    dateColor: 'var(--color-ink-soft)',
+  },
+  {
+    kind: 'photo',
+    src: '/photo-paris.jpg',
+    alt: 'Mariame et Hamza à Paris',
+    labelIdx: 1,
+    ringColor: 'var(--color-blush)',
+    dateColor: 'var(--color-ink-soft)',
+  },
+  {
+    kind: 'monogram',
+    labelIdx: 2,
+    ringColor: 'var(--color-gold)',
+    dateColor: 'var(--color-ink)',
+  },
+]
+
+interface BridgePointData {
+  label: string
+  date: string
+}
+
 function PhotoBridge() {
   const { t } = useTranslation()
+  const points = t('bridge.points', { returnObjects: true }) as BridgePointData[]
 
   return (
     <div className="mx-auto mt-24 max-w-3xl px-2">
-      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 sm:gap-6">
-        <BridgePortrait
-          src="/photo-paris.jpg"
-          alt="Mariame et Hamza à Paris"
-          label={t('bridge.parisLabel')}
-          date={t('bridge.parisDate')}
-          ringColor="var(--color-blush)"
-          dateColor="var(--color-ink-soft)"
-        />
-
-        <div className="flex items-center justify-center">
-          <svg
-            className="w-full"
-            height="2"
-            viewBox="0 0 200 2"
-            preserveAspectRatio="none"
-            aria-hidden
-          >
-            <line
-              x1="0"
-              y1="1"
-              x2="200"
-              y2="1"
-              stroke="var(--color-ink-faint)"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-            />
-          </svg>
-        </div>
-
-        <BridgePortrait
-          src="/photo-henna.jpg"
-          alt="Mariame et Hamza, cérémonie traditionnelle"
-          label={t('bridge.casablancaLabel')}
-          date={t('bridge.casablancaDate')}
-          ringColor="var(--color-gold)"
-          dateColor="var(--color-ink)"
-        />
+      <div className="grid grid-cols-[auto_1fr_auto_1fr_auto] items-center gap-2 sm:gap-4">
+        <BridgePortrait point={BRIDGE_POINTS[0]} data={points[0]} />
+        <DashedSegment />
+        <BridgePortrait point={BRIDGE_POINTS[1]} data={points[1]} />
+        <DashedSegment />
+        <BridgePortrait point={BRIDGE_POINTS[2]} data={points[2]} />
       </div>
     </div>
   )
 }
 
-interface BridgePortraitProps {
-  src: string
-  alt: string
-  label: string
-  date: string
-  ringColor: string
-  dateColor: string
+function DashedSegment() {
+  return (
+    <div className="flex items-center justify-center" aria-hidden>
+      <svg
+        className="w-full"
+        height="2"
+        viewBox="0 0 200 2"
+        preserveAspectRatio="none"
+      >
+        <line
+          x1="0"
+          y1="1"
+          x2="200"
+          y2="1"
+          stroke="var(--color-ink-faint)"
+          strokeWidth="1"
+          strokeDasharray="4 4"
+        />
+      </svg>
+    </div>
+  )
 }
 
-// Circular portrait with a colored ring. Paper gap between the photo and
-// the ring creates the "pinned-on-paper" effect that echoes the section's
-// editorial tone.
-function BridgePortrait({
-  src,
-  alt,
-  label,
-  date,
-  ringColor,
-  dateColor,
-}: BridgePortraitProps) {
+interface BridgePortraitProps {
+  point: BridgePoint
+  data: BridgePointData
+}
+
+// Circular point with a colored ring. Either contains a photo (past events)
+// or the couple's Parisienne monogram (future event — the wedding this
+// site invites guests to).
+function BridgePortrait({ point, data }: BridgePortraitProps) {
   return (
     <figure className="flex flex-col items-center">
       <span
@@ -143,24 +167,41 @@ function BridgePortrait({
           color: 'var(--color-ink-soft)',
         }}
       >
-        {label}
+        {data.label}
       </span>
 
       <div
-        className="relative overflow-hidden rounded-full"
+        className="relative flex items-center justify-center overflow-hidden rounded-full"
         style={{
-          width: 'clamp(72px, 18vw, 132px)',
+          width: 'clamp(60px, 15vw, 124px)',
           aspectRatio: '1',
-          backgroundColor: 'var(--color-blush)',
-          boxShadow: `0 0 0 3px var(--color-paper), 0 0 0 4px ${ringColor}, 0 12px 30px -15px rgba(61, 46, 53, 0.35)`,
+          backgroundColor:
+            point.kind === 'photo' ? 'var(--color-blush)' : 'var(--color-paper)',
+          boxShadow: `0 0 0 3px var(--color-paper), 0 0 0 4px ${point.ringColor}, 0 12px 30px -15px rgba(61, 46, 53, 0.35)`,
         }}
       >
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          className="h-full w-full object-cover"
-        />
+        {point.kind === 'photo' ? (
+          <img
+            src={point.src}
+            alt={point.alt}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <span
+            aria-label="Mariame et Hamza"
+            style={{
+              fontFamily: 'var(--font-script)',
+              fontSize: 'clamp(1.4rem, 3.75vw, 2.6rem)',
+              color: 'var(--color-gold)',
+              lineHeight: 1,
+              letterSpacing: '-0.02em',
+              transform: 'translateY(-4%)',
+            }}
+          >
+            M&amp;H
+          </span>
+        )}
       </div>
 
       <figcaption
@@ -168,10 +209,12 @@ function BridgePortrait({
         style={{
           fontFamily: 'var(--font-serif)',
           fontSize: 'var(--fs-body)',
-          color: dateColor,
+          color: point.dateColor,
+          textAlign: 'center',
+          lineHeight: 1.3,
         }}
       >
-        {date}
+        {data.date}
       </figcaption>
     </figure>
   )
