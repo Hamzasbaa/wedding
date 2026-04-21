@@ -23,9 +23,10 @@
   },
   "story": {
     "title": "Notre histoire",
-    "p1": "Hamza a pris le train pour Reims le 22 juin. Elle n'a pas arrêté de sourire. On a tous les deux attendu longtemps ; ça en valait la peine.",
-    "p2": "Mariame parle pendant les films, Hamza la corrompt pour qu'elle se taise. Il vend du rêve en marketing, elle vérifie qu'on peut se le payer. On se complète, on se tire vers le haut.",
-    "p3": "292 jours. Pas un seul doute."
+    "p1": "On s'est rencontrés à Reims, un samedi de juin. Hamza avait fait trois heures de train. Mariame a souri du matin au soir.",
+    "p2": "On s'était tous les deux fait attendre. Ce jour-là, on a compris pourquoi.",
+    "p3": "Elle parle pendant les films, il l'écoute quand même. Il rêve en grand, elle regarde les chiffres. Ça tient debout.",
+    "p4": "Le 11 avril, on s'est dit oui à la Mairie du 11e, entre nous. Le 14 novembre, c'est avec vous qu'on veut le faire, à Casablanca."
   },
   "address": {
     "line": "Si vous êtes sur cette page, c'est qu'on tient à vous. Venez."
@@ -60,20 +61,57 @@
   },
   "leJour": {
     "title": "Le jour",
-    "body": "Cérémonie en début d'après-midi à Casablanca, puis cocktail, dîner, et on danse tard. Prévoyez de bonnes chaussures.",
-    "venueNote": "Le lieu se confirme avant l'été. On vous envoie les détails (et une carte) dès que c'est signé.",
-    "timelineNote": "Horaires précis début octobre."
+    "intro": "Un mariage marocain, dans la plus pure tradition. On vous accueille à partir de 18h avec des gâteaux, du thé à la menthe et des boissons. Puis dîner, pièce montée, orchestre oriental, et la troupe Issawa — le moment qu'on attend le plus. On danse jusqu'au bout de la nuit.",
+    "timeline": [
+      {
+        "time": "18h",
+        "label": "Accueil",
+        "detail": "Gâteaux marocains, thé à la menthe, jus et boissons"
+      },
+      {
+        "time": "20h",
+        "label": "Dîner",
+        "detail": "À table, tous ensemble"
+      },
+      {
+        "time": "22h",
+        "label": "Pièce montée",
+        "detail": "Le cake, façon Casablanca"
+      },
+      {
+        "time": "22h30",
+        "label": "Orchestre",
+        "detail": "Musique orientale, on ouvre le bal"
+      },
+      {
+        "time": "00h",
+        "label": "Issawa",
+        "detail": "La troupe traditionnelle — le grand moment"
+      },
+      {
+        "time": "01h",
+        "label": "On danse",
+        "detail": "Jusqu'au bout de la nuit"
+      }
+    ]
+  },
+  "venue": {
+    "label": "Le lieu",
+    "name": "Palais Inès",
+    "address": "20003, Casablanca, Maroc",
+    "directions": "Itinéraire",
+    "mapTitle": "Carte du Palais Inès, Casablanca"
   },
   "infos": {
     "title": "Infos pratiques",
     "items": [
       {
         "q": "Dress code",
-        "a": "Élégant. Costume, robe de cocktail, caftan — faites-vous plaisir, c'est Casablanca en novembre."
+        "a": "Élégant. Costume, robe de cocktail, caftan — faites-vous plaisir, c'est un mariage marocain."
       },
       {
         "q": "Depuis l'aéroport",
-        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du centre. Taxi officiel : ~250 MAD. On partagera une liste d'hôtels proches du lieu dès qu'il est confirmé."
+        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD. On partagera une liste d'hôtels proches courant septembre."
       },
       {
         "q": "Les enfants",

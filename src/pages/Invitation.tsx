@@ -15,6 +15,7 @@
 import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
 import { DirectAddress } from '@/components/DirectAddress'
+import { FallingPetals } from '@/components/FallingPetals'
 import { Story } from '@/sections/Story'
 import { Rsvp } from '@/sections/Rsvp'
 import { LeJour } from '@/sections/LeJour'
@@ -25,10 +26,16 @@ import { Farewell } from '@/sections/Farewell'
 export function Invitation() {
   return (
     <>
-      <Hero />
+      {/* Ambient blush + gold petals drifting across the whole page. Sits
+          behind content (z-0); every section uses the default stacking so
+          it appears above the petals. */}
+      <FallingPetals />
 
-      <SectionDivider />
-      <Story />
+      <div className="relative" style={{ zIndex: 1 }}>
+        <Hero />
+
+        <SectionDivider />
+        <Story />
 
       <DirectAddress />
 
@@ -44,6 +51,7 @@ export function Invitation() {
       <Cadeaux />
 
       <Farewell />
+      </div>
     </>
   )
 }

@@ -13,9 +13,29 @@ import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
+import confetti from 'canvas-confetti'
 import { SectionTitle } from '@/components/SectionTitle'
 import { PaperPlaneIcon } from '@/components/Icons'
 import { supabase } from '@/lib/supabase'
+
+// Palette-matched confetti burst fired when a guest confirms attendance.
+// Two shots from opposite corners for a wider spread — feels like a rice
+// throw, not a birthday cake.
+function fireCelebration(): void {
+  const palette = ['#E8C7C3', '#C9A66B', '#3D2E35', '#FAF7F2']
+  const defaults = {
+    startVelocity: 40,
+    ticks: 220,
+    scalar: 0.9,
+    colors: palette,
+  }
+
+  confetti({ ...defaults, particleCount: 70, spread: 70, angle: 60, origin: { x: 0, y: 0.7 } })
+  confetti({ ...defaults, particleCount: 70, spread: 70, angle: 120, origin: { x: 1, y: 0.7 } })
+  setTimeout(() => {
+    confetti({ ...defaults, particleCount: 50, spread: 100, origin: { y: 0.55 } })
+  }, 180)
+}
 
 type Attending = 'yes' | 'no' | null
 
@@ -100,6 +120,10 @@ export function Rsvp() {
       })
       if (error) throw error
       setStatus('success')
+      if (attending === 'yes' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Fire on the next frame so the success view has mounted.
+        requestAnimationFrame(fireCelebration)
+      }
     } catch (err: unknown) {
       // Log to console in dev — swap for a real logger in production.
       if (import.meta.env.DEV) {
