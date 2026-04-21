@@ -104,27 +104,27 @@
     "title": "Infos pratiques",
     "items": [
       {
-        "q": "Dress code",
-        "a": "Élégant. Costume, robe de cocktail, caftan. Faites-vous plaisir, c'est un mariage marocain."
+        "q": "Tenue",
+        "a": "Élégante. Costume, robe de cocktail, caftan. Faites-vous plaisir, c'est un mariage marocain."
       },
       {
         "q": "Depuis l'aéroport",
-        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD. Quartiers recommandés pour loger : Gauthier, Racine, ou Ain Diab. Liste d'hôtels précise envoyée courant septembre."
+        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD. Quartiers recommandés pour loger : Gauthier, Racine, ou Ain Diab. Liste d'hôtels précise envoyée début septembre."
       },
       {
         "q": "Les enfants",
         "a": "Oui, bienvenus. Indiquez-les dans le formulaire pour qu'on prévoie."
       },
       {
-        "q": "Une question ?",
-        "a": "Écrivez-nous à hello@mariameandhamza.com — on répond vite."
+        "q": "Halal, alcool",
+        "a": "Repas halal, ambiance festive. Pas d'alcool servi — c'est un mariage marocain traditionnel."
       }
     ]
   },
   "cadeaux": {
     "title": "Cadeaux",
-    "intro": "Votre présence est notre plus beau cadeau. Pour celles et ceux qui veulent marquer le coup, nos coordonnées bancaires sont ci-dessous.",
-    "toggleOpen": "Voir les coordonnées",
+    "intro": "Votre présence est notre plus beau cadeau. Si vous voulez nous faire plaisir, nos coordonnées se cachent juste ici.",
+    "toggleOpen": "Voir les coordonnées →",
     "toggleClose": "Masquer",
     "accounts": [
       {
@@ -148,6 +148,6 @@
   "farewell": {
     "line": "À très vite.",
     "signoff": "Mariame & Hamza",
-    "contact": "Une question ? hello@mariameandhamza.com"
+    "contact": "Pour toute question : hello@mariameandhamza.com"
   }
 }

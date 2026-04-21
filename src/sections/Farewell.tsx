@@ -30,12 +30,16 @@ export function Farewell() {
         {t('farewell.signoff')}
       </p>
 
+      {/* Contact fallback — warm sentence case, italic serif, NOT small
+          caps. The old caps-meta version read as a website footer; this
+          version reads as the last line of a letter. */}
       <p
-        className="mt-10 uppercase"
+        className="mt-10 italic"
         style={{
-          fontSize: 'var(--fs-meta)',
-          letterSpacing: 'var(--tracking-meta)',
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'var(--fs-body)',
           color: 'var(--color-ink-soft)',
+          lineHeight: 1.55,
         }}
       >
         {t('farewell.contact')}

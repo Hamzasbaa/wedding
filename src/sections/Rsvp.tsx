@@ -21,8 +21,12 @@ import { supabase } from '@/lib/supabase'
 // Palette-matched confetti burst fired when a guest confirms attendance.
 // Two shots from opposite corners for a wider spread — feels like a rice
 // throw, not a birthday cake.
+//
+// Paper colour (#FAF7F2) is dropped from the palette — it's the page
+// background, so paper confetti is invisible. Added a deeper rose
+// (#D4A39E) for more visual variety without breaking the palette.
 function fireCelebration(): void {
-  const palette = ['#E8C7C3', '#C9A66B', '#3D2E35', '#FAF7F2']
+  const palette = ['#E8C7C3', '#D4A39E', '#C9A66B', '#3D2E35']
   const defaults = {
     startVelocity: 40,
     ticks: 220,
@@ -188,27 +192,30 @@ export function Rsvp() {
           placeholder={t('rsvp.fields.messagePlaceholder')}
         />
 
-        <button
-          type="submit"
-          className="mt-4 inline-flex items-center justify-center gap-3 self-center px-10 py-4 transition"
-          style={{
-            backgroundColor:
-              attending === null || status === 'submitting'
-                ? 'var(--color-ink-faint)'
-                : 'var(--color-gold)',
-            color: 'var(--color-paper)',
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--fs-body)',
-            letterSpacing: '0.05em',
-            border: 'none',
-            cursor:
-              attending === null || status === 'submitting' ? 'not-allowed' : 'pointer',
-          }}
-          disabled={attending === null || status === 'submitting'}
-        >
-          <PaperPlaneIcon size={18} color="var(--color-paper)" />
-          {status === 'submitting' ? t('rsvp.sending') : t('rsvp.submit')}
-        </button>
+        {/* Submit button is hidden until the guest has chosen yes/no —
+            otherwise it sits as a ghost block occupying form space. Once
+            a choice exists, it fades in. A :active press animation makes
+            the tap feel tangible on mobile. */}
+        {attending !== null && (
+          <button
+            type="submit"
+            className="rsvp-submit mt-4 inline-flex items-center justify-center gap-3 self-center px-10 py-4 transition"
+            style={{
+              backgroundColor: 'var(--color-gold)',
+              color: 'var(--color-paper)',
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'var(--fs-body)',
+              letterSpacing: '0.05em',
+              border: 'none',
+              cursor: status === 'submitting' ? 'wait' : 'pointer',
+              opacity: status === 'submitting' ? 0.75 : 1,
+            }}
+            disabled={status === 'submitting'}
+          >
+            <PaperPlaneIcon size={18} color="var(--color-paper)" />
+            {status === 'submitting' ? t('rsvp.sending') : t('rsvp.submit')}
+          </button>
+        )}
 
         {status === 'error' && (
           <p
@@ -265,12 +272,13 @@ function CountdownBadge({ days }: CountdownBadgeProps) {
         {t('rsvp.deadlineLabel')}
       </p>
 
-      {/* The deadline — the hero of this block. */}
+      {/* The deadline — the hero of this block. Bumped past the section
+          title's size so it wins the visual priority comparison. */}
       <p
         className="mt-3"
         style={{
           fontFamily: 'var(--font-serif)',
-          fontSize: 'clamp(2.25rem, 6vw, 3.75rem)',
+          fontSize: 'clamp(2.5rem, 7vw, 4rem)',
           fontWeight: 500,
           color: 'var(--color-ink)',
           letterSpacing: '-0.015em',
@@ -318,9 +326,9 @@ function Field({
     fontFamily: 'var(--font-serif)',
     fontSize: 'var(--fs-body)',
     color: 'var(--color-ink)',
-    // Faint tint makes the tap-target visible on mobile without stealing
-    // attention from the surrounding typography.
-    backgroundColor: 'rgba(61, 46, 53, 0.025)',
+    // Legible tap-target tint. 5.5% ink is subtle but visible against
+    // paper + petals.
+    backgroundColor: 'rgba(61, 46, 53, 0.055)',
     border: 'none',
     borderBottom: `1px solid var(--color-ink-faint)`,
     padding: '0.75rem 0.85rem',

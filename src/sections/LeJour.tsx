@@ -56,23 +56,26 @@ function Timeline({ items }: TimelineProps) {
       {items.map((item, i) => (
         <li
           key={item.time}
-          className="grid grid-cols-[auto_1fr] items-baseline gap-5 sm:gap-8"
+          className="grid grid-cols-[auto_1fr] items-baseline gap-6 sm:gap-9"
         >
+          {/* Time — the anchor. Larger display size + gold so each row's
+              time feels like a chapter marker, not a tag. */}
           <div
-            className="uppercase text-right"
+            className="text-right uppercase"
             style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'var(--fs-body-lg)',
-              letterSpacing: '0.05em',
+              fontSize: 'clamp(1.5rem, 5vw, 2rem)',
+              lineHeight: 1,
+              letterSpacing: '-0.01em',
               color: 'var(--color-gold)',
               fontWeight: 500,
-              minWidth: '4rem',
+              minWidth: '3.5rem',
             }}
           >
             {item.time}
           </div>
           <div
-            className="border-l pl-5 sm:pl-7"
+            className="border-l pl-6 sm:pl-8"
             style={{
               borderColor:
                 i === items.length - 1 ? 'transparent' : 'var(--color-ink-faint)',
@@ -85,12 +88,13 @@ function Timeline({ items }: TimelineProps) {
                 fontSize: 'var(--fs-body-lg)',
                 fontWeight: 500,
                 color: 'var(--color-ink)',
+                lineHeight: 1.25,
               }}
             >
               {item.label}
             </div>
             <div
-              className="mt-1 italic"
+              className="mt-1.5 italic"
               style={{
                 fontSize: 'var(--fs-body)',
                 color: 'var(--color-ink-soft)',
@@ -215,11 +219,15 @@ function VenueCard() {
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
+            // Disable iframe pointer-events so mobile swipes scroll the
+            // page instead of panning the map. Guests interact via the
+            // "Itinéraire" button which opens Google Maps directly.
             style={{
               border: 0,
               width: '100%',
               height: '100%',
               display: 'block',
+              pointerEvents: 'none',
             }}
           />
         </div>

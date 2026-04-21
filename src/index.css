@@ -24,7 +24,7 @@
   --fs-body-lg: clamp(1.125rem, 1vw + 0.9rem, 1.25rem);
   --fs-body: 1.125rem;
   --fs-invocation: 1.125rem;
-  --fs-meta: 0.75rem;
+  --fs-meta: 0.8125rem;
   --fs-monogram: 2.5rem;
 
   /* Line height */
@@ -82,4 +82,30 @@ h3 {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Focus: visible but soft — gold outline only for keyboard users. Mouse
+   and touch interactions don't trigger :focus-visible, so the gold ring
+   only shows when it actually helps. */
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  background-color: rgba(201, 166, 107, 0.08);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* RSVP submit — press animation. Feels tangible when tapped without
+   waiting for the server roundtrip. */
+.rsvp-submit:not(:disabled):hover {
+  filter: brightness(1.05);
+}
+
+.rsvp-submit:not(:disabled):active {
+  transform: translateY(1px);
+  filter: brightness(0.96);
 }

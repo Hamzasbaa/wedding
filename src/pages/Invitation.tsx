@@ -64,9 +64,9 @@ function Hero() {
   const { t } = useTranslation()
 
   return (
-    <section className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 py-20 text-center">
+    <section className="mx-auto flex min-h-[85vh] max-w-4xl flex-col items-center justify-center px-6 py-12 text-center md:min-h-screen md:py-20">
       <p
-        className="mb-16"
+        className="mb-10 md:mb-14"
         style={{
           fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
           fontSize: 'var(--fs-invocation)',
@@ -89,14 +89,18 @@ function Hero() {
         }}
       >
         <span>{t('couple.firstName1')}</span>
+        {/* Ampersand in Parisienne — consistent with "script = tender
+            accents." Reserves this one flourish for the couple, echoing
+            the section titles. */}
         <span
           className="my-1 md:my-0"
           style={{
-            fontStyle: 'italic',
+            fontFamily: 'var(--font-script)',
             color: 'var(--color-blush)',
             fontWeight: 400,
-            fontSize: '0.45em',
+            fontSize: '0.55em',
             lineHeight: 1.2,
+            letterSpacing: 'normal',
           }}
         >
           {t('couple.and')}
@@ -105,7 +109,7 @@ function Hero() {
       </h1>
 
       <div
-        className="my-10"
+        className="my-8 md:my-10"
         style={{ width: 60, height: 1, backgroundColor: 'var(--color-ink-faint)' }}
         aria-hidden
       />
@@ -122,7 +126,7 @@ function Hero() {
         {t('hero.subline')}
       </p>
 
-      <div className="mt-10">
+      <div className="mt-8 md:mt-10">
         <p style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--fs-body-lg)' }}>
           {t('hero.dateLong')}
         </p>
@@ -143,7 +147,7 @@ function Hero() {
         <div
           lang="ar"
           dir="rtl"
-          className="mt-10"
+          className="mt-8"
           style={{
             fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
             color: 'var(--color-ink-soft)',
@@ -164,7 +168,7 @@ function Hero() {
 
       {/* Scroll cue — discreet chevron, auto-fading. */}
       <div
-        className="mt-20"
+        className="mt-10 md:mt-16"
         style={{
           color: 'var(--color-ink-soft)',
           animation: 'hero-scroll-cue 2.6s ease-in-out infinite',
