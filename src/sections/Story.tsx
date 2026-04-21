@@ -2,34 +2,14 @@
 //
 // Structure:
 //   1. Section title
-//   2. Two-column block (photo + prose) on desktop, stacked on mobile
-//   3. Polaroid strip — 3 candid photos (NYC, Paris, Moroccan engagement)
-//      with slight rotations and a light overlap for texture
-//   4. Paris → Casablanca bridge — the retrouvailles visual
+//   2. Two-column block — civil wedding portrait + prose
+//   3. Paris → Casablanca photo-bridge — two circular portraits linked by
+//      a dashed line. Paris photo sits above a blush ring, Casablanca
+//      above a gold ring. This is the "retrouvailles" visual, now
+//      embodied by the actual photos (was previously a polaroid strip
+//      AND a separate dot-bridge — duplicative; merged into one).
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
-
-interface Polaroid {
-  src: string
-  alt: string
-  caption: string
-  rotation: number // deg
-}
-
-const POLAROIDS: readonly Polaroid[] = [
-  {
-    src: '/photo-paris.jpg',
-    alt: 'Mariame et Hamza à Paris, Tour Eiffel en arrière-plan',
-    caption: 'Paris',
-    rotation: -3,
-  },
-  {
-    src: '/photo-henna.jpg',
-    alt: 'Mariame et Hamza en tenue traditionnelle marocaine',
-    caption: 'Casablanca',
-    rotation: 2,
-  },
-]
 
 export function Story() {
   const { t } = useTranslation()
@@ -76,85 +56,27 @@ export function Story() {
         </div>
       </div>
 
-      <PolaroidStrip />
-
-      <ParisToCasablancaBridge />
+      <PhotoBridge />
     </section>
   )
 }
 
-// Three photos shown as hand-placed polaroids. Light rotation, small overlap,
-// a gentle hover tilt on desktop so they feel tangible.
-function PolaroidStrip() {
-  return (
-    <div className="mt-20">
-      <div className="flex flex-wrap items-start justify-center gap-6 sm:gap-10">
-        {POLAROIDS.map((p) => (
-          <PolaroidCard key={p.src} polaroid={p} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-interface PolaroidCardProps {
-  polaroid: Polaroid
-}
-
-function PolaroidCard({ polaroid }: PolaroidCardProps) {
-  return (
-    <figure
-      className="group transition-transform duration-500 ease-out hover:scale-[1.03]"
-      style={{
-        width: 'min(70vw, 220px)',
-        transform: `rotate(${polaroid.rotation}deg)`,
-        backgroundColor: '#fff',
-        padding: '12px 12px 44px',
-        boxShadow:
-          '0 1px 0 rgba(61, 46, 53, 0.06), 0 20px 40px -25px rgba(61, 46, 53, 0.35), 0 8px 20px -15px rgba(61, 46, 53, 0.22)',
-      }}
-    >
-      <img
-        src={polaroid.src}
-        alt={polaroid.alt}
-        loading="lazy"
-        style={{
-          width: '100%',
-          aspectRatio: '3 / 4',
-          objectFit: 'cover',
-          display: 'block',
-          backgroundColor: 'var(--color-blush)',
-        }}
-      />
-      <figcaption
-        className="absolute bottom-3 left-0 right-0 text-center uppercase"
-        style={{
-          fontFamily: 'var(--font-script)',
-          fontSize: '1rem',
-          color: 'var(--color-ink-soft)',
-          letterSpacing: '0.05em',
-          textTransform: 'none',
-        }}
-      >
-        {polaroid.caption}
-      </figcaption>
-    </figure>
-  )
-}
-
-// Paris → Casablanca bridge.
-// Two dots on a dashed line: blush (Paris, the civil wedding) → gold (Casablanca,
-// the celebration). The whole point of the site in one diagram.
-function ParisToCasablancaBridge() {
+// Paris → Casablanca photo-bridge.
+// Two circular portraits connected by a dashed line. The portraits ARE
+// the retrouvailles: the past (civil wedding, blush ring) linked to the
+// future (celebration, gold ring).
+function PhotoBridge() {
   const { t } = useTranslation()
 
   return (
-    <div className="mx-auto mt-20 max-w-2xl px-2" aria-hidden="true">
+    <div className="mx-auto mt-24 max-w-3xl px-2">
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 sm:gap-6">
-        <BridgeEndpoint
+        <BridgePortrait
+          src="/photo-paris.jpg"
+          alt="Mariame et Hamza à Paris"
           label={t('bridge.parisLabel')}
           date={t('bridge.parisDate')}
-          color="var(--color-blush)"
+          ringColor="var(--color-blush)"
           dateColor="var(--color-ink-soft)"
         />
 
@@ -164,6 +86,7 @@ function ParisToCasablancaBridge() {
             height="2"
             viewBox="0 0 200 2"
             preserveAspectRatio="none"
+            aria-hidden
           >
             <line
               x1="0"
@@ -177,10 +100,12 @@ function ParisToCasablancaBridge() {
           </svg>
         </div>
 
-        <BridgeEndpoint
+        <BridgePortrait
+          src="/photo-henna.jpg"
+          alt="Mariame et Hamza, cérémonie traditionnelle"
           label={t('bridge.casablancaLabel')}
           date={t('bridge.casablancaDate')}
-          color="var(--color-gold)"
+          ringColor="var(--color-gold)"
           dateColor="var(--color-ink)"
         />
       </div>
@@ -188,18 +113,30 @@ function ParisToCasablancaBridge() {
   )
 }
 
-interface BridgeEndpointProps {
+interface BridgePortraitProps {
+  src: string
+  alt: string
   label: string
   date: string
-  color: string
+  ringColor: string
   dateColor: string
 }
 
-function BridgeEndpoint({ label, date, color, dateColor }: BridgeEndpointProps) {
+// Circular portrait with a colored ring. Paper gap between the photo and
+// the ring creates the "pinned-on-paper" effect that echoes the section's
+// editorial tone.
+function BridgePortrait({
+  src,
+  alt,
+  label,
+  date,
+  ringColor,
+  dateColor,
+}: BridgePortraitProps) {
   return (
-    <div className="flex flex-col items-center">
+    <figure className="flex flex-col items-center">
       <span
-        className="uppercase"
+        className="mb-3 uppercase"
         style={{
           fontSize: 'var(--fs-meta)',
           letterSpacing: 'var(--tracking-meta)',
@@ -208,17 +145,26 @@ function BridgeEndpoint({ label, date, color, dateColor }: BridgeEndpointProps) 
       >
         {label}
       </span>
-      <span
-        className="my-3 block rounded-full"
+
+      <div
+        className="relative overflow-hidden rounded-full"
         style={{
-          width: 14,
-          height: 14,
-          backgroundColor: color,
-          boxShadow: `0 0 0 4px var(--color-paper), 0 0 0 5px ${color}40`,
+          width: 'clamp(72px, 18vw, 132px)',
+          aspectRatio: '1',
+          backgroundColor: 'var(--color-blush)',
+          boxShadow: `0 0 0 3px var(--color-paper), 0 0 0 4px ${ringColor}, 0 12px 30px -15px rgba(61, 46, 53, 0.35)`,
         }}
-      />
-      <span
-        className="mt-3 italic"
+      >
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
+      </div>
+
+      <figcaption
+        className="mt-4 italic"
         style={{
           fontFamily: 'var(--font-serif)',
           fontSize: 'var(--fs-body)',
@@ -226,7 +172,7 @@ function BridgeEndpoint({ label, date, color, dateColor }: BridgeEndpointProps) 
         }}
       >
         {date}
-      </span>
-    </div>
+      </figcaption>
+    </figure>
   )
 }

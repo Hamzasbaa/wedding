@@ -220,7 +220,6 @@ function VenueCard() {
               width: '100%',
               height: '100%',
               display: 'block',
-              filter: 'grayscale(0.15) contrast(0.95)',
             }}
           />
         </div>

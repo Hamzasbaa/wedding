@@ -333,10 +333,12 @@ function Field({
     fontFamily: 'var(--font-serif)',
     fontSize: 'var(--fs-body)',
     color: 'var(--color-ink)',
-    backgroundColor: 'transparent',
+    // Faint tint makes the tap-target visible on mobile without stealing
+    // attention from the surrounding typography.
+    backgroundColor: 'rgba(61, 46, 53, 0.025)',
     border: 'none',
     borderBottom: `1px solid var(--color-ink-faint)`,
-    padding: '0.5rem 0',
+    padding: '0.75rem 0.85rem',
     width: '100%',
     outline: 'none',
   }

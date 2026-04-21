@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Paper backdrop -->
+  <rect width="1200" height="630" fill="#FAF7F2"/>
+
+  <!-- Hairline frame 32px from the edges -->
+  <rect x="32" y="32" width="1136" height="566"
+        fill="none" stroke="#C9A66B" stroke-width="1" opacity="0.45"/>
+
+  <!-- Eyebrow: APRÈS PARIS -->
+  <text x="600" y="160"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="22" letter-spacing="6"
+        fill="rgba(61, 46, 53, 0.6)">
+    APRÈS PARIS
+  </text>
+
+  <!-- Names: one centered line, italic blush ampersand as tspan. -->
+  <text x="600" y="310"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-weight="600"
+        font-size="96"
+        letter-spacing="-1"
+        fill="#3D2E35">
+    Mariame<tspan dx="14" dy="-6"
+                  font-style="italic"
+                  font-family="'Apple Chancery', 'Brush Script MT', cursive"
+                  font-weight="400"
+                  font-size="72"
+                  fill="#E8C7C3"> &amp; </tspan><tspan dx="8" dy="6">Hamza</tspan>
+  </text>
+
+  <!-- Gold hairline -->
+  <line x1="550" y1="390" x2="650" y2="390"
+        stroke="#C9A66B" stroke-width="1" opacity="0.55"/>
+
+  <!-- Date + city -->
+  <text x="600" y="450"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-style="italic"
+        font-size="34"
+        fill="#3D2E35">
+    14 novembre 2026 · Casablanca
+  </text>
+
+  <!-- Subline -->
+  <text x="600" y="520"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-style="italic"
+        font-size="24"
+        fill="rgba(61, 46, 53, 0.6)">
+    On s'est dit oui à Paris. On se retrouve à Casablanca.
+  </text>
+</svg>

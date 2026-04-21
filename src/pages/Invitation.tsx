@@ -1,17 +1,20 @@
 // Public invitation page.
 //
-// Section order follows the "emotional courtship" arc agreed in the audit:
-//   1. Hero       — names + date + city + one line in "on" voice
-//   2. Story      — three paragraphs + civil-wedding photo + Paris→Casablanca bridge
-//   3. Address    — one handwritten line speaking directly to the guest
-//   4. RSVP       — the ask, with the live days-until-wedding line built in
-//   5. Le jour    — prose placeholder until the venue is confirmed
-//   6. Infos      — FAQ (dress, airport, kids, contact)
+// Section order (after the second audit — Le jour moved before RSVP so
+// guests know what they're signing up for):
+//   1. Hero       — names + date + city + "on" voice subline + Arabic mirror
+//   2. Story      — 4 paragraphs + civil-wedding photo + Paris→Casablanca photo bridge
+//   3. Le jour    — Moroccan wedding timeline + Palais Inès map
+//   4. Address    — one handwritten line speaking directly to the guest
+//   5. RSVP       — the ask, with the CountdownBadge anchor
+//   6. Infos      — FAQ (dress, airport + hotels, kids, contact)
 //   7. Cadeaux    — gated behind a click, labeled En France / Au Maroc
 //   8. Farewell   — one warm line, signature, contact fallback
 //
-// Everything the audit decided to kill (envelope cover, scratch reveal,
-// standalone countdown, the repeat-date footer) is gone.
+// Only two section dividers remain: one between hero and story (bridges
+// the grand-frame opening into intimate storytelling), one between rsvp
+// and infos (emotional ask → practical utility). Everything else relies
+// on the section titles + petals for separation.
 import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
 import { DirectAddress } from '@/components/DirectAddress'
@@ -31,27 +34,25 @@ export function Invitation() {
           it appears above the petals. */}
       <FallingPetals />
 
-      <div className="relative" style={{ zIndex: 1 }}>
+      <main className="relative" style={{ zIndex: 1 }}>
         <Hero />
 
         <SectionDivider />
         <Story />
 
-      <DirectAddress />
+        <LeJour />
 
-      <Rsvp />
+        <DirectAddress />
 
-      <SectionDivider />
-      <LeJour />
+        <Rsvp />
 
-      <SectionDivider />
-      <Infos />
+        <SectionDivider />
+        <Infos />
 
-      <SectionDivider />
-      <Cadeaux />
+        <Cadeaux />
 
-      <Farewell />
-      </div>
+        <Farewell />
+      </main>
     </>
   )
 }
@@ -145,6 +146,24 @@ function Hero() {
           }}
         >
           {t('hero.city')}
+        </p>
+
+        {/* Arabic mirror — names, date, city in Arabic/RTL.
+            A quiet companion for the Arabophone guests (la Dada, parents,
+            family from Morocco). Rendered in the same family as the
+            invocation so the two Arabic lines feel kin. */}
+        <p
+          lang="ar"
+          dir="rtl"
+          className="mt-8"
+          style={{
+            fontFamily: "'Geeza Pro', 'Noto Naskh Arabic', serif",
+            fontSize: 'var(--fs-body)',
+            color: 'var(--color-ink-soft)',
+            lineHeight: 1.8,
+          }}
+        >
+          {t('hero.arabicMirror')}
         </p>
       </div>
 
