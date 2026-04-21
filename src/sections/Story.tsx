@@ -1,17 +1,14 @@
-// "Notre histoire" — the emotional core.
+// "Notre histoire" — visual only. No prose.
 //
-// Structure:
-//   1. Section title
-//   2. Two-column block — civil wedding portrait + prose
-//   3. Three-point photo-bridge telling the arc:
-//      Casa 8 nov 2025 (henna / engagement)  — blush ring, photo
-//      Paris 11 avril 2026 (civil wedding)    — blush ring, photo
-//      Casa 14 novembre 2026 (the celebration) — gold ring, M&H monogram
+// The couple is private; the section was over-sharing. Stripped to just:
+//   1. Title
+//   2. Mairie portrait (centered, contained)
+//   3. Three-point photo-bridge — Casa 2025 (henna) → Paris 2026 (civil)
+//      → Casa 2026 (M&H monogram for the upcoming celebration)
 //
-//      The past events wear blush rings and real photos; the future event
-//      wears a gold ring and the couple's monogram — the same mark used
-//      in the favicon and OG card, signalling "this is what we're
-//      inviting you to."
+// Guests who know the couple feel the arc; guests who don't see a
+// couple's two cities and can draw their own conclusions. Nothing
+// revealed in text.
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
 import { Reveal } from '@/components/Reveal'
@@ -23,48 +20,25 @@ export function Story() {
     <section className="relative mx-auto max-w-5xl px-6 py-12 md:py-16">
       <SectionTitle>{t('story.title')}</SectionTitle>
 
-      <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-[2fr_3fr] md:items-start md:gap-16">
-        {/* Mairie portrait — the civil wedding */}
-        <Reveal
+      {/* Mairie portrait — centered, contained. 3:4 ratio, max ~420px
+          so it carries weight without dominating on desktop. */}
+      <Reveal className="mt-14 flex justify-center md:mt-16">
+        <div
           className="overflow-hidden"
-          /* Aspect ratio + backing colour kept on inner div since
-             Reveal's wrapper already inherits size via grid cell */
+          style={{
+            width: 'min(100%, 420px)',
+            aspectRatio: '3 / 4',
+            backgroundColor: 'var(--color-blush)',
+          }}
         >
-          <div
-            className="overflow-hidden"
-            style={{
-              aspectRatio: '3 / 4',
-              backgroundColor: 'var(--color-blush)',
-            }}
-          >
-            <img
-              src="/photo-mairie.jpg"
-              alt="Mariame et Hamza, Mairie du 11e arrondissement, 11 avril 2026"
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        </Reveal>
-
-        {/* Prose — each paragraph reveals in sequence */}
-        <div className="space-y-6" style={{ fontSize: 'var(--fs-body-lg)', lineHeight: 1.7 }}>
-          <Reveal delay={80}><p>{t('story.p1')}</p></Reveal>
-          <Reveal delay={180}><p>{t('story.p2')}</p></Reveal>
-          <Reveal delay={280}><p>{t('story.p3')}</p></Reveal>
-          <Reveal delay={380}>
-            <p
-              className="italic"
-              style={{
-                fontFamily: 'var(--font-serif)',
-                color: 'var(--color-ink)',
-                fontSize: 'var(--fs-invitation)',
-              }}
-            >
-              {t('story.p4')}
-            </p>
-          </Reveal>
+          <img
+            src="/photo-mairie.jpg"
+            alt="Mariame et Hamza, Mairie du 11e arrondissement"
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         </div>
-      </div>
+      </Reveal>
 
       <PhotoBridge />
     </section>
