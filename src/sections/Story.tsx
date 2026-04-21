@@ -192,10 +192,10 @@ function BridgePortrait({ point, data }: BridgePortraitProps) {
             aria-label="Mariame et Hamza"
             style={{
               fontFamily: 'var(--font-script)',
-              fontSize: 'clamp(1.4rem, 3.75vw, 2.6rem)',
+              fontSize: 'clamp(1rem, 2.6vw, 1.75rem)',
               color: 'var(--color-gold)',
               lineHeight: 1,
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.04em',
               transform: 'translateY(-4%)',
             }}
           >
