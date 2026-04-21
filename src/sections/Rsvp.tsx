@@ -16,6 +16,7 @@ import { z } from 'zod'
 import confetti from 'canvas-confetti'
 import { SectionTitle } from '@/components/SectionTitle'
 import { PaperPlaneIcon } from '@/components/Icons'
+import { DirectAddress } from '@/components/DirectAddress'
 import { supabase } from '@/lib/supabase'
 
 // Palette-matched confetti burst fired when a guest confirms attendance.
@@ -160,6 +161,10 @@ export function Rsvp() {
   return (
     <section id="rsvp" className="mx-auto max-w-xl px-6 py-12 md:py-16">
       <SectionTitle>{t('rsvp.title')}</SectionTitle>
+
+      {/* Direct-address script line sits right above the deadline so
+          the emotional appeal immediately precedes the ask. */}
+      <DirectAddress className="mt-10" />
 
       <CountdownBadge days={days} />
 

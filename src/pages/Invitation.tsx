@@ -16,7 +16,6 @@
 // on the section titles + petals for separation.
 import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
-import { DirectAddress } from '@/components/DirectAddress'
 import { FallingPetals } from '@/components/FallingPetals'
 import { PaperGrain } from '@/components/PaperGrain'
 import { Story } from '@/sections/Story'
@@ -44,17 +43,19 @@ export function Invitation() {
         <SectionDivider />
         <Story />
 
+        <SectionDivider />
         <LeJour />
 
+        <SectionDivider />
         <LeLieu />
 
-        <DirectAddress />
-
+        <SectionDivider />
         <Rsvp />
 
         <SectionDivider />
         <Infos />
 
+        <SectionDivider />
         <Farewell />
       </main>
     </>
