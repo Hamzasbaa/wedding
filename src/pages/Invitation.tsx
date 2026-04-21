@@ -14,6 +14,7 @@
 // the grand-frame opening into intimate storytelling), one between rsvp
 // and infos (emotional ask → practical utility). Everything else relies
 // on the section titles + petals for separation.
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionDivider } from '@/components/SectionDivider'
 import { FallingPetals } from '@/components/FallingPetals'
@@ -67,6 +68,17 @@ export function Invitation() {
 // oui à Paris"), not third-person faire-part convention.
 function Hero() {
   const { t } = useTranslation()
+
+  // The scroll cue has to sit on the viewport edge because hero content
+  // overflows 85vh on small phones — if we render it in-flow it lands
+  // below the fold and defeats its purpose. Fixed position + fade-on-scroll
+  // is the classic "there's more below" pattern.
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <section className="mx-auto flex min-h-[85vh] max-w-4xl flex-col items-center justify-center px-6 py-12 text-center md:min-h-screen md:py-20">
@@ -194,36 +206,69 @@ function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue — outer div handles the fade-in on page load;
-          inner div handles the infinite gentle pulse. Two layers so
-          the entrance animation (via className) and the ambient pulse
-          (via inline style) don't conflict on the `animation` property. */}
-      <div className="hero-anim-chevron mt-10 md:mt-16" aria-hidden>
-        <div
-          style={{
-            color: 'var(--color-ink-soft)',
-            animation: 'hero-scroll-cue 2.6s ease-in-out 2800ms infinite',
-          }}
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      {/* Scroll cue — fixed to viewport bottom so it stays visible even
+          when hero content overflows the fold on small phones. Fades out
+          once the user starts scrolling (the signal has done its job).
+          Label + chevron: the word removes the "is the chevron decorative?"
+          ambiguity people were hitting when shared.
+
+          Three nested layers by responsibility:
+          - Outer: fixed positioning + scroll-fade
+          - Middle (hero-anim-chevron): entrance animation
+          - Inner: infinite pulse
+          Each layer owns its own `transform`, so the entrance animation
+          can't clobber the horizontal centering. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'fixed',
+          bottom: 'max(1.25rem, env(safe-area-inset-bottom))',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 20,
+          opacity: scrolled ? 0 : 1,
+          transition: 'opacity 400ms ease-out',
+          pointerEvents: 'none',
+        }}
+      >
+        <div className="hero-anim-chevron">
+          <div
+            className="flex flex-col items-center gap-2.5"
+            style={{
+              animation: 'hero-scroll-cue 2.4s ease-in-out 1900ms infinite',
+            }}
           >
-            <path d="M6 9 L12 15 L18 9" />
-          </svg>
+            <span
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: '0.7rem',
+                letterSpacing: '0.24em',
+                textTransform: 'uppercase',
+                color: 'var(--color-blush)',
+              }}
+            >
+              {t('hero.scrollCue')}
+            </span>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--color-ink)"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 9 L12 15 L18 9" />
+            </svg>
+          </div>
         </div>
       </div>
 
       <style>{`
         @keyframes hero-scroll-cue {
-          0%, 100% { opacity: 0.3; transform: translateY(0); }
-          50%      { opacity: 0.7; transform: translateY(4px); }
+          0%, 100% { opacity: 0.6; transform: translateY(0); }
+          50%      { opacity: 0.95; transform: translateY(6px); }
         }
       `}</style>
     </section>

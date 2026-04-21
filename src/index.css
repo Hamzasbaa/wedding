@@ -154,7 +154,7 @@ h3 {
 .hero-anim-subline { animation: hero-fade-up   600ms ease-out   1600ms both; }
 .hero-anim-where   { animation: hero-fade-up   600ms ease-out   1850ms both; }
 .hero-anim-arabic  { animation: hero-fade-up   600ms ease-out   2100ms both; }
-.hero-anim-chevron { animation: hero-fade-up   600ms ease-out   2400ms both; }
+.hero-anim-chevron { animation: hero-fade-up   600ms ease-out   1800ms both; }
 
 @media (prefers-reduced-motion: reduce) {
   [class^="hero-anim-"] { animation: none !important; opacity: 1 !important; transform: none !important; }

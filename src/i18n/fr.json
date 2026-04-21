@@ -16,7 +16,8 @@
     "city": "Casablanca",
     "arabicNames": "مريم و حمزة",
     "arabicDate": "١٤ نوفمبر ٢٠٢٦",
-    "arabicCity": "الدار البيضاء"
+    "arabicCity": "الدار البيضاء",
+    "scrollCue": "continuer"
   },
   "bridge": {
     "points": [
