@@ -24,16 +24,10 @@ const POLAROIDS: readonly Polaroid[] = [
     rotation: -3,
   },
   {
-    src: '/photo-nyc-sunset.jpg',
-    alt: 'Mariame et Hamza à Central Park, coucher de soleil sur New York',
-    caption: 'New York',
-    rotation: 2,
-  },
-  {
     src: '/photo-henna.jpg',
     alt: 'Mariame et Hamza en tenue traditionnelle marocaine',
     caption: 'Casablanca',
-    rotation: -1,
+    rotation: 2,
   },
 ]
 

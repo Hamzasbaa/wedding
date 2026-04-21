@@ -23,7 +23,7 @@
   },
   "story": {
     "title": "Notre histoire",
-    "p1": "On s'est rencontrés à Reims, un samedi de juin. Hamza avait fait trois heures de train. Mariame a souri du matin au soir.",
+    "p1": "On s'est rencontrés un dimanche à Reims. Hamza avait fait trois heures de train. Mariame a souri du matin au soir.",
     "p2": "On s'était tous les deux fait attendre. Ce jour-là, on a compris pourquoi.",
     "p3": "Elle parle pendant les films, il l'écoute quand même. Il rêve en grand, elle regarde les chiffres. Ça tient debout.",
     "p4": "Le 11 avril, on s'est dit oui à la Mairie du 11e, entre nous. Le 14 novembre, c'est avec vous qu'on veut le faire, à Casablanca."
@@ -33,8 +33,8 @@
   },
   "rsvp": {
     "title": "Votre réponse",
-    "subtitle": "Plus que {{days}} jours. Répondez avant le 1er août 2026.",
-    "subtitleNoCount": "Répondez avant le 1er août 2026.",
+    "unitDays": "jours",
+    "deadlineLabel": "Date limite · 1er août 2026",
     "fields": {
       "name": "Votre nom",
       "email": "Email",
@@ -61,37 +61,32 @@
   },
   "leJour": {
     "title": "Le jour",
-    "intro": "Un mariage marocain, dans la plus pure tradition. On vous accueille à partir de 18h avec des gâteaux, du thé à la menthe et des boissons. Puis dîner, pièce montée, orchestre oriental, et la troupe Issawa — le moment qu'on attend le plus. On danse jusqu'au bout de la nuit.",
+    "intro": "Un mariage marocain, dans la plus pure tradition. La troupe Issawa vous accueille dès 18h, l'orchestre prend le relais à 20h pour toute la nuit. On danse jusqu'à 2h du matin.",
     "timeline": [
       {
         "time": "18h",
-        "label": "Accueil",
-        "detail": "Gâteaux marocains, thé à la menthe, jus et boissons"
+        "label": "Accueil & Issawa",
+        "detail": "La troupe ouvre la soirée. Gâteaux marocains, thé à la menthe, boissons."
       },
       {
         "time": "20h",
-        "label": "Dîner",
-        "detail": "À table, tous ensemble"
+        "label": "Orchestre",
+        "detail": "Musique orientale. Toute la nuit, jusqu'à la fin."
       },
       {
         "time": "22h",
-        "label": "Pièce montée",
-        "detail": "Le cake, façon Casablanca"
-      },
-      {
-        "time": "22h30",
-        "label": "Orchestre",
-        "detail": "Musique orientale, on ouvre le bal"
+        "label": "Dîner",
+        "detail": "À table, tous ensemble."
       },
       {
         "time": "00h",
-        "label": "Issawa",
-        "detail": "La troupe traditionnelle — le grand moment"
+        "label": "Pièce montée",
+        "detail": "Le cake, façon Casablanca."
       },
       {
-        "time": "01h",
-        "label": "On danse",
-        "detail": "Jusqu'au bout de la nuit"
+        "time": "02h",
+        "label": "Fin",
+        "detail": "On se quitte (ou pas)."
       }
     ]
   },
@@ -107,7 +102,7 @@
     "items": [
       {
         "q": "Dress code",
-        "a": "Élégant. Costume, robe de cocktail, caftan — faites-vous plaisir, c'est un mariage marocain."
+        "a": "Élégant. Costume, robe de cocktail, caftan. Faites-vous plaisir, c'est un mariage marocain."
       },
       {
         "q": "Depuis l'aéroport",

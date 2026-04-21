@@ -161,16 +161,9 @@ export function Rsvp() {
     <section id="rsvp" className="mx-auto max-w-xl px-6 py-16">
       <SectionTitle>{t('rsvp.title')}</SectionTitle>
 
-      <p
-        className="mt-6 text-center italic"
-        style={{ color: 'var(--color-ink-soft)', fontSize: 'var(--fs-body)' }}
-      >
-        {days > 0
-          ? t('rsvp.subtitle', { days })
-          : t('rsvp.subtitleNoCount')}
-      </p>
+      <CountdownBadge days={days} />
 
-      <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
+      <form onSubmit={handleSubmit} className="mt-16 flex flex-col gap-8">
         <Field label={t('rsvp.fields.name')} name="guest_name" required />
         <Field label={t('rsvp.fields.email')} name="email" type="email" />
 
@@ -228,6 +221,94 @@ export function Rsvp() {
         )}
       </form>
     </section>
+  )
+}
+
+// CountdownBadge — the visual anchor between the section title and the form.
+// Big gold number + italic "jours" on one baseline, flanked by two hairlines,
+// then the deadline date in small caps. Reads as "a date, not a status line."
+interface CountdownBadgeProps {
+  days: number
+}
+
+function CountdownBadge({ days }: CountdownBadgeProps) {
+  const { t } = useTranslation()
+
+  // Past the deadline: show a gentler line in the same slot.
+  if (days <= 0) {
+    return (
+      <p
+        className="mt-8 text-center uppercase"
+        style={{
+          fontSize: 'var(--fs-meta)',
+          letterSpacing: 'var(--tracking-meta)',
+          color: 'var(--color-ink-soft)',
+        }}
+      >
+        {t('rsvp.deadlineLabel')}
+      </p>
+    )
+  }
+
+  return (
+    <div className="mt-10 flex flex-col items-center">
+      <div
+        aria-hidden
+        style={{
+          width: 80,
+          height: 1,
+          backgroundColor: 'var(--color-gold)',
+          opacity: 0.5,
+        }}
+      />
+
+      <div className="my-6 flex items-baseline gap-3">
+        <span
+          aria-label={`${days} jours`}
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'clamp(3.5rem, 10vw, 6rem)',
+            fontWeight: 500,
+            color: 'var(--color-gold)',
+            lineHeight: 0.95,
+            letterSpacing: '-0.025em',
+          }}
+        >
+          {days}
+        </span>
+        <span
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--fs-invitation)',
+            fontStyle: 'italic',
+            color: 'var(--color-ink)',
+          }}
+        >
+          {t('rsvp.unitDays')}
+        </span>
+      </div>
+
+      <div
+        aria-hidden
+        style={{
+          width: 80,
+          height: 1,
+          backgroundColor: 'var(--color-gold)',
+          opacity: 0.5,
+        }}
+      />
+
+      <p
+        className="mt-5 uppercase"
+        style={{
+          fontSize: 'var(--fs-meta)',
+          letterSpacing: 'var(--tracking-meta)',
+          color: 'var(--color-ink-soft)',
+        }}
+      >
+        {t('rsvp.deadlineLabel')}
+      </p>
+    </div>
   )
 }
 
