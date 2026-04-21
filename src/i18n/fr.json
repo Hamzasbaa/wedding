@@ -94,8 +94,10 @@
       }
     ]
   },
+  "leLieu": {
+    "title": "Le lieu"
+  },
   "venue": {
-    "label": "Le lieu",
     "name": "Palais Inès",
     "address": "20003, Casablanca, Maroc",
     "directions": "Itinéraire",
@@ -110,7 +112,11 @@
       },
       {
         "q": "Depuis l'aéroport",
-        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD. Quartiers recommandés pour loger : Gauthier, Racine, ou Ain Diab. Liste d'hôtels précise envoyée début septembre."
+        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD."
+      },
+      {
+        "q": "Hôtels",
+        "a": "Quartiers à viser : Gauthier, Racine, ou Ain Diab — proches du Palais Inès et agréables à vivre. On envoie une liste d'hôtels précise début septembre."
       },
       {
         "q": "Les enfants",

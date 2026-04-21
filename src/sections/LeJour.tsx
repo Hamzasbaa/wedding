@@ -1,17 +1,18 @@
 // "Le jour" — what to expect on November 14.
 //
-// A traditional Moroccan wedding at Palais Inès, Casablanca. Guests arrive
-// at 6pm for gâteaux and tea, dinner follows, then orchestre and Issawa —
-// the signature Moroccan spiritual-music troupe — and dancing until late.
+// A traditional Moroccan wedding at Palais Inès. Issawa opens the
+// evening at 6pm, orchestre takes over at 8pm for the night, dinner
+// at 10pm, and we dance until 2am.
 //
 // Structure:
 //   1. Intro paragraph
-//   2. Timeline (simple vertical list on mobile, horizontal on desktop)
-//   3. Venue card with Palais Inès details + Google Maps embed
-//   4. Directions button
+//   2. Timeline (vertical list)
+//
+// The venue card used to live here but was split into its own "Le lieu"
+// section so the section title matches the style convention — every
+// major chunk gets a Parisienne gold script heading.
 import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '@/components/SectionTitle'
-import { PinIcon } from '@/components/Icons'
 
 interface TimelineItem {
   time: string
@@ -40,8 +41,6 @@ export function LeJour() {
       </p>
 
       <Timeline items={items} />
-
-      <VenueCard />
     </section>
   )
 }
@@ -107,131 +106,5 @@ function Timeline({ items }: TimelineProps) {
         </li>
       ))}
     </ol>
-  )
-}
-
-// Venue card — Palais Inès with address, a map embed, and a "Itinéraire"
-// button that opens the place in the guest's maps app (Google by default).
-//
-// The map uses OpenStreetMap's official embed endpoint — no API key, no
-// X-Frame-Options block, works everywhere. Coordinates are approximate
-// (Casablanca, near the 20003 postal zone); swap in exact Palais Inès
-// coordinates once the final address is confirmed.
-//
-// Approximate coords: 33.5603° N, -7.6104° W.
-const VENUE_LAT = 33.5603
-const VENUE_LNG = -7.6104
-
-function VenueCard() {
-  const { t } = useTranslation()
-
-  const query = 'Palais Inès Casablanca Maroc'
-  // Bounding box: ~1.5km around the marker for a readable zoom.
-  const delta = 0.012
-  const bbox = [
-    VENUE_LNG - delta,
-    VENUE_LAT - delta,
-    VENUE_LNG + delta,
-    VENUE_LAT + delta,
-  ].join(',')
-  const embedSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${VENUE_LAT},${VENUE_LNG}`
-  const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    query,
-  )}`
-
-  return (
-    <article
-      className="mt-20 overflow-hidden"
-      style={{
-        border: '1px solid var(--color-ink-faint)',
-        backgroundColor: 'var(--color-paper)',
-      }}
-    >
-      <div className="grid grid-cols-1 md:grid-cols-[5fr_6fr]">
-        {/* Details */}
-        <div className="flex flex-col justify-center p-8 md:p-10">
-          <p
-            className="uppercase"
-            style={{
-              fontSize: 'var(--fs-meta)',
-              letterSpacing: 'var(--tracking-meta)',
-              color: 'var(--color-gold)',
-            }}
-          >
-            {t('venue.label')}
-          </p>
-          <h3
-            className="mt-3"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-              fontWeight: 500,
-              color: 'var(--color-ink)',
-              lineHeight: 1.15,
-            }}
-          >
-            {t('venue.name')}
-          </h3>
-          <p
-            className="mt-3"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'var(--fs-body-lg)',
-              color: 'var(--color-ink-soft)',
-              lineHeight: 1.5,
-            }}
-          >
-            {t('venue.address')}
-          </p>
-
-          <a
-            href={directionsHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 self-start uppercase transition hover:opacity-80"
-            style={{
-              fontSize: 'var(--fs-meta)',
-              letterSpacing: 'var(--tracking-meta)',
-              color: 'var(--color-ink)',
-              padding: '0.7rem 1.2rem',
-              border: '1px solid var(--color-ink-faint)',
-              backgroundColor: 'transparent',
-              textDecoration: 'none',
-            }}
-          >
-            <PinIcon size={14} color="var(--color-gold)" />
-            {t('venue.directions')}
-          </a>
-        </div>
-
-        {/* Map */}
-        <div
-          className="relative"
-          style={{
-            minHeight: 280,
-            aspectRatio: '4 / 3',
-            backgroundColor: 'var(--color-blush)',
-          }}
-        >
-          <iframe
-            title={t('venue.mapTitle')}
-            src={embedSrc}
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            // Disable iframe pointer-events so mobile swipes scroll the
-            // page instead of panning the map. Guests interact via the
-            // "Itinéraire" button which opens Google Maps directly.
-            style={{
-              border: 0,
-              width: '100%',
-              height: '100%',
-              display: 'block',
-              pointerEvents: 'none',
-            }}
-          />
-        </div>
-      </div>
-    </article>
   )
 }

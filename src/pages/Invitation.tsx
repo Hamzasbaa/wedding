@@ -22,6 +22,7 @@ import { FallingPetals } from '@/components/FallingPetals'
 import { Story } from '@/sections/Story'
 import { Rsvp } from '@/sections/Rsvp'
 import { LeJour } from '@/sections/LeJour'
+import { LeLieu } from '@/sections/LeLieu'
 import { Infos } from '@/sections/Infos'
 import { Cadeaux } from '@/sections/Cadeaux'
 import { Farewell } from '@/sections/Farewell'
@@ -41,6 +42,8 @@ export function Invitation() {
         <Story />
 
         <LeJour />
+
+        <LeLieu />
 
         <DirectAddress />
 
