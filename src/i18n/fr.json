@@ -11,7 +11,7 @@
   },
   "hero": {
     "eyebrow": "après Paris",
-    "subline": "On s'est dit oui à Paris. On aimerait vous avoir à Casablanca.",
+    "subline": "On s'est dit oui à Paris. On se retrouve à Casablanca.",
     "dateLong": "14 novembre 2026",
     "city": "Casablanca"
   },
@@ -26,7 +26,7 @@
     "p1": "On s'est rencontrés un dimanche à Reims. Hamza avait fait trois heures de train. Mariame a souri du matin au soir.",
     "p2": "On s'était tous les deux fait attendre. Ce jour-là, on a compris pourquoi.",
     "p3": "Elle parle pendant les films, il l'écoute quand même. Il rêve en grand, elle regarde les chiffres. Ça tient debout.",
-    "p4": "Le 11 avril, on s'est dit oui à la Mairie du 11e, entre nous. Le 14 novembre, c'est avec vous qu'on veut le faire, à Casablanca."
+    "p4": "Le 11 avril, on s'est dit oui à la Mairie du 11e, entre nous. Le 14 novembre, on se retrouve à Casablanca, avec vous."
   },
   "address": {
     "line": "Si vous êtes sur cette page, c'est qu'on tient à vous. Venez."
@@ -61,7 +61,7 @@
   },
   "leJour": {
     "title": "Le jour",
-    "intro": "Un mariage marocain, dans la plus pure tradition. La troupe Issawa vous accueille dès 18h, l'orchestre prend le relais à 20h pour toute la nuit. On danse jusqu'à 2h du matin.",
+    "intro": "Un mariage marocain. La troupe Issawa vous accueille dès 18h, l'orchestre prend le relais à 20h. On danse jusqu'à 2h du matin.",
     "timeline": [
       {
         "time": "18h",
@@ -71,7 +71,7 @@
       {
         "time": "20h",
         "label": "Orchestre",
-        "detail": "Musique orientale. Toute la nuit, jusqu'à la fin."
+        "detail": "Musique orientale. Toute la nuit."
       },
       {
         "time": "22h",
@@ -106,7 +106,7 @@
       },
       {
         "q": "Depuis l'aéroport",
-        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD. On partagera une liste d'hôtels proches courant septembre."
+        "a": "Casablanca Mohammed V (CMN) est à environ 30 minutes du Palais Inès. Taxi officiel : ~250 MAD. Quartiers recommandés pour loger : Gauthier, Racine, ou Ain Diab. Liste d'hôtels précise envoyée courant septembre."
       },
       {
         "q": "Les enfants",
@@ -144,7 +144,7 @@
   },
   "farewell": {
     "line": "À très vite.",
-    "signoff": "— Mariame & Hamza",
+    "signoff": "Mariame & Hamza",
     "contact": "Une question ? hello@mariameandhamza.com"
   }
 }
